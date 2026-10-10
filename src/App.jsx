@@ -93,6 +93,7 @@ function App() {
         </Routes>
 
         <Footer />
+        
         <CarbonFootprintDisplay /> 
       </div>
     </BrowserRouter>
