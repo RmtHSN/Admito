@@ -1,103 +1,78 @@
+import { Link } from "react-router-dom";
+
+const COLUMNS = [
+  {
+    heading: "Explore",
+    links: [
+      { to: "/circulars", label: "Circulars" },
+      { to: "/important-dates", label: "Important Dates" },
+      { to: "/applications", label: "My Applications" },
+      { to: "/notifications", label: "Notifications" },
+    ],
+  },
+  {
+    heading: "Your account",
+    links: [
+      { to: "/information", label: "My Profile & Documents" },
+      { to: "/account", label: "Account" },
+      { to: "/login", label: "Login" },
+      { to: "/signup", label: "Sign up" },
+    ],
+  },
+  {
+    heading: "Help",
+    links: [
+      { to: "/contact", label: "Contact" },
+      { to: "/about-us", label: "About us" },
+    ],
+  },
+];
+
 export default function Footer() {
   return (
-    <footer className="p-4 bg-navy md:p-8 lg:p-10">
-      <div className="mx-auto max-w-screen-xl text-center">
-        <a
-          href="#"
-          className="font-display flex justify-center items-center text-2xl font-semibold text-slate-800 hover:text-amber-700 transition"
-        >
-          <svg
-            className="mr-2 h-8 w-8 text-slate-800 hover:text-amber-700 transition"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M4 19.5A2.5 2.5 0 016.5 17H20"
-              stroke="currentColor"
-              strokeWidth="1.6"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <path
-              d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"
-              stroke="currentColor"
-              strokeWidth="1.6"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-          Admito<span className="text-slate-800">.io</span>
-        </a>
+    <footer className="bg-navy text-slate-300">
+      <div className="mx-auto max-w-screen-xl px-4 py-10 md:px-8 lg:py-12">
+        <div className="grid gap-10 md:grid-cols-4">
+          {/* brand */}
+          <div className="md:col-span-1">
+            <Link to="/" className="font-display flex items-center text-2xl font-semibold text-white hover:text-gold">
+              <svg className="mr-2 h-8 w-8 text-gold" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 19.5A2.5 2.5 0 016.5 17H20" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              Admito
+            </Link>
+            <p className="mt-4 text-sm leading-relaxed text-slate-400">
+              One portal for every step of your admission: circulars, application status and important dates,
+              all in one place.
+            </p>
+          </div>
 
-        <p className="my-6 text-amber-700">
-          One portal for every step of your admission — circulars, application
-          status, and important dates, all in one place.
-        </p>
+          {COLUMNS.map((col) => (
+            <nav key={col.heading} aria-label={col.heading}>
+              <h2 className="mb-4 text-xs font-semibold uppercase tracking-widest text-gold-400">{col.heading}</h2>
+              <ul className="space-y-2.5 text-sm">
+                {col.links.map((l) => (
+                  <li key={l.to}>
+                    <Link to={l.to} className="transition hover:text-gold">
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          ))}
+        </div>
 
-        <ul className="flex flex-wrap justify-center items-center mb-6 text-white">
-          <li>
-            <a
-              href="/"
-              className="mr-4 text-slate-800 hover:text-amber-700 md:mr-6"
-            >
-              Home
-            </a>
-          </li>
-
-          <li>
-            <a
-              href="/circulars"
-              className="mr-4 text-slate-800 hover:text-amber-700 md:mr-6"
-            >
-              Circulars
-            </a>
-          </li>
-
-          <li>
-            <a
-              href="/application-status"
-              className="mr-4 text-slate-800 hover:text-amber-700 md:mr-6"
-            >
-              Application Status
-            </a>
-          </li>
-
-          <li>
-            <a
-              href="/important-dates"
-              className="mr-4 text-slate-800 hover:text-amber-700 md:mr-6"
-            >
-              Important Dates
-            </a>
-          </li>
-
-          <li>
-            <a
-              href="/contact"
-              className="mr-4 text-slate-800 hover:text-amber-700 md:mr-6"
-            >
-              Contact
-            </a>
-          </li>
-
-          <li>
-            <a
-              href="/about-us"
-              className="mr-4 text-slate-800 hover:text-amber-700 md:mr-6"
-            >
-              AboutUs
-            </a>
-          </li>
-        </ul>
-
-        <span className="text-sm text-slate-800 sm:text-center">
-          © 2026{" "}
-          <a href="#" className="text-amber-700 hover:underline">
-            Admito
-          </a>
-          . All Rights Reserved.
-        </span>
+        <div className="mt-10 flex flex-col gap-3 border-t border-white/10 pt-6 text-xs text-slate-400 sm:flex-row sm:items-center sm:justify-between">
+          <p>
+            © {new Date().getFullYear()} <span className="text-slate-200">Admito</span>. All rights reserved.
+          </p>
+          <p className="max-w-md sm:text-right">
+            Demo project: applications made here are not sent to any university. University names and logos belong
+            to their respective owners.
+          </p>
+        </div>
       </div>
     </footer>
   );
