@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { Reveal } from "./Reveal";
 
 export default function Features() {
   return (
@@ -15,7 +16,7 @@ export default function Features() {
         <div className="grid pt-8 text-left border-t border-slate-300 md:grid-cols-3 md:gap-12">
 
           {/* Recent Circulars */}
-          <div>
+          <Reveal delay={0} className="card-lift rounded-2xl p-5">
             <div className="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-[#805827]/10 lg:h-12 lg:w-12">
               <svg
                 className="w-5 h-5 text-[#805827] lg:w-6 lg:h-6"
@@ -47,10 +48,10 @@ export default function Features() {
                 <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
               </svg>
             </Link>
-          </div>
+          </Reveal>
 
           {/* Application Status */}
-          <div>
+          <Reveal delay={120} className="card-lift rounded-2xl p-5">
             <div className="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-[#805827]/10 lg:h-12 lg:w-12">
               <svg
                 className="w-5 h-5 text-[#805827] lg:w-6 lg:h-6"
@@ -83,10 +84,10 @@ export default function Features() {
                 <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
               </svg>
             </Link>
-          </div>
+          </Reveal>
 
           {/* Important Dates -> routes to /important-dates */}
-          <div>
+          <Reveal delay={240} className="card-lift rounded-2xl p-5">
             <div className="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-[#805827]/10 lg:h-12 lg:w-12">
               <svg
                 className="w-5 h-5 text-[#805827] lg:w-6 lg:h-6"
@@ -118,7 +119,7 @@ export default function Features() {
                 <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
               </svg>
             </Link>
-          </div>
+          </Reveal>
 
         </div>
       </div>

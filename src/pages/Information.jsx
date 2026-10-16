@@ -300,7 +300,7 @@ export default function Information() {
 
       const res = await fetch(`${API}/api/profile`, {
         method: "PUT",
-        headers: authHeaders(), // do NOT set Content-Type; the browser adds the multipart boundary
+        headers: authHeaders(), 
         body: form,
       });
       const text = await res.text();

@@ -99,7 +99,7 @@ export default function Navbar() {
 
   const linkClass = ({ isActive }) =>
     `transition-colors ${
-      isActive ? "text-[#FFD700]" : "text-[#805827] hover:text-[#FFD700]"
+      isActive ? "text-[#FFD700]" : "text-slate-200 hover:text-[#FFD700]"
     }`;
 
   return (
@@ -121,7 +121,7 @@ export default function Navbar() {
                 className="absolute inset-0 w-full h-full object-contain opacity-0 group-hover:opacity-100"
               />
             </div>
-            <span className="text-lg md:text-xl font-medium text-[#805827] group-hover:text-[#FFD700]">
+            <span className="text-lg md:text-xl font-medium text-slate-200 group-hover:text-[#FFD700]">
               Admito
             </span>
           </Link>
@@ -137,7 +137,7 @@ export default function Navbar() {
             <Link
               to="/notifications"
               aria-label="Notifications"
-              className="relative text-[#805827] hover:text-[#FFD700] transition-colors"
+              className="relative text-slate-200 hover:text-[#FFD700] transition-colors"
             >
               <BellIcon />
               {unreadCount > 0 && (
@@ -150,7 +150,7 @@ export default function Navbar() {
             <Link
               to={loggedIn ? "/account" : "/login"}
               aria-label={loggedIn ? "Account" : "Login"}
-              className="text-[#805827] hover:text-[#FFD700] transition-colors"
+              className="text-slate-200 hover:text-[#FFD700] transition-colors"
             >
               <UserIcon />
             </Link>
@@ -161,7 +161,7 @@ export default function Navbar() {
             <Link
               to="/notifications"
               aria-label="Notifications"
-              className="relative text-[#805827] hover:text-[#FFD700]"
+              className="relative text-slate-200 hover:text-[#FFD700]"
             >
               <BellIcon />
               {unreadCount > 0 && (
@@ -177,7 +177,7 @@ export default function Navbar() {
               aria-label={open ? "Close menu" : "Open menu"}
               aria-expanded={open}
               aria-controls="mobile-menu"
-              className="p-2 -mr-2 text-[#805827] hover:text-[#FFD700] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFD700] rounded"
+              className="p-2 -mr-2 text-slate-200 hover:text-[#FFD700] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFD700] rounded"
             >
               {open ? (
                 <svg
@@ -229,7 +229,7 @@ export default function Navbar() {
 
           <Link
             to={loggedIn ? "/account" : "/login"}
-            className="flex items-center gap-2 py-3 text-[#805827] hover:text-[#FFD700]"
+            className="flex items-center gap-2 py-3 text-slate-200 hover:text-[#FFD700]"
           >
             <UserIcon /> Account
           </Link>

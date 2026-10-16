@@ -21,8 +21,6 @@ const LeafIcon = () => (
   </svg>
 );
 
-// Small box in the bottom-right corner: how much data this visit has transferred
-// and the CO2 that causes. Put VITE_SHOW_CARBON=false in the frontend .env to hide it.
 export default function CarbonFootprintDisplay() {
   const [gCO2, bytesTransferred] = useCarbonFootprint();
   const [open, setOpen] = useState(true);

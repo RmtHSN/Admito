@@ -2,6 +2,7 @@ import { useState } from "react";
 import AdminLogin from "./AdminLogin";
 import ResourceManager from "./ResourceManager";
 import AssessmentManager from "./AssessmentManager";
+import BannerManager from "./BannerManager";
 import { adminApi, getToken } from "./adminApi";
 
 const circularFields = [
@@ -154,6 +155,7 @@ export default function AdminPanel() {
             { key: "circulars", label: "Circulars" },
             { key: "dates", label: "Important Dates" },
             { key: "assessments", label: "Assessment" },
+            { key: "banners", label: "Banners" },
           ].map((t) => (
             <button
               key={t.key}
@@ -188,6 +190,8 @@ export default function AdminPanel() {
             onUpdate={adminApi.updateImportantDate}
             onDelete={adminApi.deleteImportantDate}
           />
+        ) : tab === "banners" ? (
+          <BannerManager />
         ) : (
           <AssessmentManager />
         )}
