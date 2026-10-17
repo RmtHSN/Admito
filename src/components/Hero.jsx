@@ -64,15 +64,15 @@ export default function Hero() {
     "inline-flex items-center justify-center rounded-lg border border-white/30 px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-white/10";
 
   return (
-    <section className="relative isolate overflow-hidden bg-gradient-to-b from-navy to-navy-light">
+    <section className="relative isolate overflow-hidden bg-navy">
       <HeroCarousel />
       {/* overlay: keeps text readable on any photo */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-navy/80 via-navy/60 to-navy/90" />
+      <div className="absolute inset-0 -z-10 bg-navy/70" />
       <div className="spin-slow pointer-events-none absolute -right-20 -top-20 -z-10 h-80 w-80 rounded-full border border-dashed border-amber-500/40" />
       <div className="float-y pointer-events-none absolute right-5 top-10 -z-10 h-52 w-52 rounded-full border border-gold/20" />
       <div className="float-y pointer-events-none absolute -left-10 top-1/3 -z-10 h-40 w-40 rounded-full bg-gold/10 blur-2xl" style={{ animationDelay: "-3s" }} />
 
-      <div className="mx-auto max-w-screen-xl px-4 pb-32 pt-14 text-center lg:px-12 lg:pb-36 lg:pt-20">
+      <div className="mx-auto max-w-screen-xl px-4 pb-72 pt-14 text-center sm:pb-60 lg:px-12 lg:pb-56 lg:pt-20">
         <Link
           to="/circulars"
           style={{ animationDelay: "50ms" }}

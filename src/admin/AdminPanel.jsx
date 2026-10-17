@@ -150,7 +150,7 @@ export default function AdminPanel() {
         </div>
 
         {/* Tabs */}
-        <div className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white p-1 mb-6 w-fit">
+        <div className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white p-1 mb-6 w-fit max-w-full overflow-x-auto">
           {[
             { key: "circulars", label: "Circulars" },
             { key: "dates", label: "Important Dates" },
@@ -160,7 +160,7 @@ export default function AdminPanel() {
             <button
               key={t.key}
               onClick={() => setTab(t.key)}
-              className={`rounded-md px-4 py-1.5 text-sm font-medium transition ${
+              className={`shrink-0 whitespace-nowrap rounded-md px-4 py-1.5 text-sm font-medium transition ${
                 tab === t.key
                   ? "bg-[#805827] text-white"
                   : "text-slate-500 hover:text-slate-800"

@@ -28,11 +28,11 @@ export default function HowItWorks() {
 
         <div className="relative grid gap-8 md:grid-cols-4">
           {/* connecting line (desktop) draws itself when scrolled into view */}
-          <Reveal className="absolute left-[12.5%] right-[12.5%] top-7 hidden h-0.5 bg-gradient-to-r from-[#805827]/20 via-gold to-[#805827]/20 md:block" />
+          <Reveal className="absolute left-[12.5%] right-[12.5%] top-7 hidden h-0.5 bg-[#805827]/25 md:block" />
           {STEPS.map((s, i) => (
             <Reveal key={s.n} delay={i * 140} className="relative text-center">
               <Link to={s.to} className="group block card-lift rounded-2xl p-4">
-                <span className="relative mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full border-2 border-gold bg-white font-display text-lg font-semibold text-[#805827] shadow transition group-hover:bg-gold group-hover:text-slate-soft">
+                <span className="relative mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full border-2 border-[#805827]/40 bg-white font-display text-lg font-semibold text-[#805827] shadow transition group-hover:border-[#805827] group-hover:bg-[#805827] group-hover:text-white">
                   {s.n}
                 </span>
                 <h3 className="mb-1 text-lg font-semibold text-slate-800">{s.title}</h3>
@@ -42,7 +42,7 @@ export default function HowItWorks() {
           ))}
         </div>
 
-        <Reveal delay={200} className="mt-14 overflow-hidden rounded-2xl bg-gradient-to-r from-navy to-navy-light p-8 text-center shadow-xl sm:p-10">
+        <Reveal delay={200} className="mt-14 overflow-hidden rounded-2xl bg-navy p-8 text-center shadow-xl sm:p-10">
           <h3 className="font-display text-2xl font-semibold text-white sm:text-3xl">
             Ready to begin your <span className="shimmer-text italic">session</span>?
           </h3>

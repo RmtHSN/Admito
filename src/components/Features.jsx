@@ -41,7 +41,7 @@ export default function Features() {
             </p>
             <Link
               to="/circulars"
-              className="inline-flex items-center mt-3 text-sm font-medium text-[#805827] hover:text-[#FFD700]"
+              className="inline-flex items-center mt-3 text-sm font-medium text-[#805827] hover:text-[#5e3f1a]"
             >
               View all circulars
               <svg className="ml-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -77,7 +77,7 @@ export default function Features() {
             </p>
             <Link
               to="/applications"
-              className="inline-flex items-center mt-3 text-sm font-medium text-[#805827] hover:text-[#FFD700]"
+              className="inline-flex items-center mt-3 text-sm font-medium text-[#805827] hover:text-[#5e3f1a]"
             >
               Check your status
               <svg className="ml-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -112,7 +112,7 @@ export default function Features() {
             </p>
             <Link
               to="/important-dates"
-              className="inline-flex items-center mt-3 text-sm font-medium text-[#805827] hover:text-[#FFD700]"
+              className="inline-flex items-center mt-3 text-sm font-medium text-[#805827] hover:text-[#5e3f1a]"
             >
               See the full calendar
               <svg className="ml-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">

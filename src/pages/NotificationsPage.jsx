@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import PageHero from "../components/PageHero";
 import { Link } from "react-router-dom";
 import { apiFetch } from "../utils/api";
 
@@ -64,7 +65,7 @@ const bellIcon = (
 function NotificationItem({ n, onRead }) {
   const unread = !n.read;
   const ctaClass =
-    "mt-2 inline-block text-xs font-semibold text-[#805827] hover:text-[#FFD700]";
+    "mt-2 inline-block text-xs font-semibold text-[#805827] hover:text-[#5e3f1a]";
   const ctaLabel = `${n.linkLabel || "View details"} →`;
   const isExternal = n.link && /^https?:\/\//i.test(n.link);
 
@@ -76,7 +77,7 @@ function NotificationItem({ n, onRead }) {
       }`}
     >
       {unread && (
-        <span className="absolute left-0 top-0 h-full w-1 rounded-l-xl bg-[#FFD700]" />
+        <span className="absolute left-0 top-0 h-full w-1 rounded-l-xl bg-[#805827]" />
       )}
       <div
         className={`ml-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${
@@ -230,32 +231,33 @@ export default function NotificationsPage() {
   const earlier = items.filter((n) => daysAgo(n.createdAt) > 0);
 
   return (
-    <div className="min-h-screen bg-stone-200 pt-20 sm:pt-24 md:pt-28 lg:pt-32">
-      {/* Page header */}
-      <div className="pointer-events-none absolute -top-20 -right-20 h-80 w-80 rounded-full border border-amber-700"></div>
-      <div className="pointer-events-none absolute top-10 right-5 h-52 w-52 rounded-full border border-gold/15"></div>
-
-      <div className="mx-auto max-w-3xl px-6 pb-6">
-        <div className="mb-1 flex items-center justify-between">
-          <h1 className="text-3xl font-semibold text-slate-800">
-            Notifications
-          </h1>
-          <button
-            onClick={markAllRead}
-            disabled={unreadCount === 0 || markingAll}
-            className="text-sm font-semibold text-[#805827] transition hover:text-[#FFD700] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:text-[#805827]"
-          >
-            {markingAll ? "Marking..." : "Mark all as read"}
-          </button>
-        </div>
-        <p className="text-sm text-slate-500">
-          Updates on your application, circulars, and important dates.
-        </p>
-      </div>
+    <div className="min-h-screen bg-stone-200 pb-16">
+      <PageHero
+        badge="Inbox"
+        title="Notifications"
+        action={
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            {unreadCount > 0 && (
+              <span className="rounded-full bg-white/10 px-3 py-1.5 text-sm font-medium text-gold">
+                {unreadCount} unread
+              </span>
+            )}
+            <button
+              onClick={markAllRead}
+              disabled={unreadCount === 0 || markingAll}
+              className="rounded-full border border-white/25 px-4 py-1.5 text-sm font-semibold text-white transition hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-white"
+            >
+              {markingAll ? "Marking..." : "Mark all as read"}
+            </button>
+          </div>
+        }
+      >
+        Updates on your application, circulars, and important dates.
+      </PageHero>
 
       {/* Filter tabs */}
-      <div className="mx-auto max-w-3xl px-6">
-        <div className="mb-6 flex items-center gap-2 overflow-x-auto border-b border-slate-200">
+      <div className="relative z-10 mx-auto -mt-8 max-w-3xl px-6">
+        <div className="mb-6 flex items-center gap-2 overflow-x-auto overflow-y-hidden rounded-xl bg-white px-3 shadow-md [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {TABS.map((tab) => {
             const active = filter === tab.key;
             return (
@@ -264,8 +266,8 @@ export default function NotificationsPage() {
                 onClick={() => setFilter(tab.key)}
                 className={`flex items-center gap-1.5 whitespace-nowrap px-4 py-2.5 text-sm transition ${
                   active
-                    ? "-mb-px border-b-2 border-[#FFD700] font-semibold text-slate-800"
-                    : "font-medium text-slate-500 hover:text-slate-800"
+                    ? "border-b-2 border-[#805827] font-semibold text-slate-800"
+                    : "border-b-2 border-transparent font-medium text-slate-500 hover:text-slate-800"
                 }`}
               >
                 {tab.label}

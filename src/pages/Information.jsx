@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import PageHero from "../components/PageHero";
 
 // Works whether VITE_API_URL is "http://host:4000" or "http://host:4000/api"
 const API = (import.meta.env.VITE_API_URL || "http://localhost:4000")
@@ -117,7 +118,7 @@ function UploadSlot({ label, required, shape, value, onUpload, hint }) {
   };
 
   const sizeClass =
-    shape === "square" ? "w-[200px] aspect-square shrink-0" : "w-[200px] h-20 shrink-0";
+    shape === "square" ? "w-[200px] max-w-full aspect-square shrink-0" : "w-[200px] max-w-full h-20 shrink-0";
 
   return (
     <div>
@@ -326,24 +327,15 @@ export default function Information() {
   const docCount = Object.values(documents).filter(Boolean).length;
 
   return (
-    <section className="min-h-screen bg-stone-200 pt-24 sm:pt-28 md:pt-32 pb-16 px-4">
-      <div className="max-w-4xl mx-auto">
-        <div className="pointer-events-none absolute -top-20 -right-20 h-80 w-80 rounded-full border border-amber-700"></div>
-      <div className="pointer-events-none absolute top-10 right-5 h-52 w-52 rounded-full border border-gold/15"></div>
+    <section className="min-h-screen bg-stone-200 pb-16">
+      <PageHero badge="Your Profile" title="Applicant Profile">
+        Save your details, academic records, and documents here — reuse them as
+        a quick reference to fill out any university's form faster and with
+        fewer errors.
+      </PageHero>
 
-        {/* Header */}
-        <div className="mb-6">
-          <h1 className="text-3xl md:text-4xl font-semibold text-slate-800 mb-2">
-            Applicant Profile
-          </h1>
-          <p className="text-slate-500 max-w-2xl">
-            Save your details, academic records, and documents here — reuse
-            them as a quick reference to fill out any university's form
-            faster and with fewer errors.
-          </p>
-        </div>
-
-        <div className="bg-white rounded-lg shadow-sm">
+      <div className="relative z-10 max-w-4xl mx-auto px-4 -mt-8">
+        <div className="bg-white rounded-xl shadow-md">
           {/* Flowbite Tabs — underline style */}
           {/* https://flowbite.com/docs/components/tabs/ */}
           <div className="border-b border-gray-200">
