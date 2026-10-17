@@ -10,8 +10,8 @@
 @theme {
   --color-navy: #0f172a;        /* darkest background (hero, footer) */
   --color-navy-light: #1e293b;  /* same as slate-800, matches the navbar */
-  --color-gold: #d9c6a3;        /* soft sand: accents on dark backgrounds only */
-  --color-gold-400: #e8dac0;    /* small sand labels */
+  --color-gold: #ffd700;        /* highlights, buttons */
+  --color-gold-400: #ffe14d;    /* small gold labels */
   --color-slate-soft: #1e293b;  /* dark text on gold buttons */
   --color-brand: #805827;       /* your brown, for text on LIGHT backgrounds */
   --color-brand-dark: #6b4620;
@@ -74,6 +74,6 @@ html {
 
 @media (prefers-reduced-motion: reduce) {
   .fade-up, .fade-in, .page-enter { animation: none; opacity: 1; }
-  .kenburns, .float-y, .spin-slow, .ticker-track, .shimmer-text {
-  color: var(--color-gold);
+  .kenburns, .float-y, .spin-slow, .ticker-track { animation: none; }
+  .reveal { opacity: 1; transform: none; transition: none; }
 }

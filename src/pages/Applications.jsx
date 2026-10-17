@@ -51,9 +51,9 @@ function Timeline({ steps }) {
           borderStyle: "solid",
           ...(s.current
             ? {
-                borderColor: "#805827",
+                borderColor: "#FFD700",
                 background: "#805827",
-                boxShadow: "0 0 0 4px rgba(128, 88, 39, 0.2)",
+                boxShadow: "0 0 0 4px rgba(255, 215, 0, 0.3)",
               }
             : s.done
               ? { borderColor: "#805827", background: "#805827" }
@@ -103,7 +103,7 @@ function Timeline({ steps }) {
                   {STEP_LABELS[s.key] || s.title}
                 </p>
                 {s.current && (
-                  <span className="rounded-full bg-[#805827]/10 px-2 py-0.5 text-[11px] font-semibold text-[#805827]">
+                  <span className="rounded-full bg-yellow-50 px-2 py-0.5 text-[11px] font-semibold text-[#805827]">
                     Current
                   </span>
                 )}
@@ -130,7 +130,7 @@ function ApplicationCard({ app, onWithdraw, withdrawing }) {
 
   return (
     <article className="card-lift overflow-hidden rounded-2xl bg-white shadow-sm">
-      <div className="h-1.5 bg-[#805827]" />
+      <div className="h-1.5 bg-gold" />
       <div className="p-5 sm:p-6">
         {/* university + application number */}
         <div className="flex flex-wrap items-start justify-between gap-3">
@@ -151,7 +151,7 @@ function ApplicationCard({ app, onWithdraw, withdrawing }) {
         <div className="mt-5 rounded-xl bg-stone-50 p-4">
           <div className="mb-2 flex flex-wrap items-center justify-between gap-x-3 gap-y-1 text-xs">
             <span className="inline-flex items-center gap-1.5 font-semibold text-slate-700">
-              <span className="h-2 w-2 rounded-full bg-[#805827]" />
+              <span className="h-2 w-2 rounded-full bg-gold" />
               {current ? STEP_LABELS[current.key] || current.title : "Not started"}
             </span>
             <span className="text-slate-400">
@@ -160,7 +160,7 @@ function ApplicationCard({ app, onWithdraw, withdrawing }) {
           </div>
           <div className="h-2.5 w-full overflow-hidden rounded-full bg-slate-200">
             <div
-              className="h-full origin-left rounded-full bg-[#805827]"
+              className="h-full origin-left rounded-full bg-gold"
               style={{ width: `${percent}%`, animation: "draw 1s cubic-bezier(.2,.7,.2,1) both" }}
             />
           </div>
@@ -348,7 +348,7 @@ export default function Applications() {
 
         {!loading && !error && applications.length === 0 && (
           <div className="rounded-2xl bg-white p-8 text-center shadow-md sm:p-10">
-            <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[#805827]/10 text-[#805827]">
+            <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-gold/20 text-[#805827]">
               <svg className="h-7 w-7" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
                 <path d="M19.5 14.25v-2.63a3.38 3.38 0 00-3.38-3.37h-1.5A1.13 1.13 0 0113.5 7.13v-1.5a3.38 3.38 0 00-3.38-3.38H8.25m2.25 0H5.63c-.62 0-1.13.5-1.13 1.12v17.25c0 .62.5 1.13 1.13 1.13h12.75c.62 0 1.12-.5 1.12-1.13V11.25a9 9 0 00-9-9z" />
               </svg>

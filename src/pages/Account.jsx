@@ -102,9 +102,9 @@ export default function Account() {
       <div className="relative z-10 mx-auto -mt-8 max-w-3xl space-y-6 px-4">
         {/* identity card */}
         <Reveal className="overflow-hidden rounded-2xl bg-white shadow-md">
-          <div className="h-1.5 bg-[#805827]" />
+          <div className="h-1.5 bg-gold" />
           <div className="flex flex-col items-center gap-5 p-6 text-center sm:flex-row sm:p-8 sm:text-left">
-            <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-[#805827] font-display text-3xl font-semibold text-white ring-4 ring-[#805827]/15">
+            <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-gold font-display text-3xl font-semibold text-slate-800 ring-4 ring-gold/25">
               {initials(user.name)}
             </div>
             <div className="min-w-0 flex-1">

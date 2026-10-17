@@ -65,7 +65,7 @@ const bellIcon = (
 function NotificationItem({ n, onRead }) {
   const unread = !n.read;
   const ctaClass =
-    "mt-2 inline-block text-xs font-semibold text-[#805827] hover:text-[#5e3f1a]";
+    "mt-2 inline-block text-xs font-semibold text-[#805827] hover:text-[#FFD700]";
   const ctaLabel = `${n.linkLabel || "View details"} →`;
   const isExternal = n.link && /^https?:\/\//i.test(n.link);
 
@@ -77,7 +77,7 @@ function NotificationItem({ n, onRead }) {
       }`}
     >
       {unread && (
-        <span className="absolute left-0 top-0 h-full w-1 rounded-l-xl bg-[#805827]" />
+        <span className="absolute left-0 top-0 h-full w-1 rounded-l-xl bg-[#FFD700]" />
       )}
       <div
         className={`ml-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${
@@ -245,7 +245,7 @@ export default function NotificationsPage() {
             <button
               onClick={markAllRead}
               disabled={unreadCount === 0 || markingAll}
-              className="rounded-full border border-white/25 px-4 py-1.5 text-sm font-semibold text-white transition hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-white"
+              className="rounded-full border border-white/25 px-4 py-1.5 text-sm font-semibold text-white transition hover:bg-gold hover:text-slate-800 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-white"
             >
               {markingAll ? "Marking..." : "Mark all as read"}
             </button>
@@ -266,7 +266,7 @@ export default function NotificationsPage() {
                 onClick={() => setFilter(tab.key)}
                 className={`flex items-center gap-1.5 whitespace-nowrap px-4 py-2.5 text-sm transition ${
                   active
-                    ? "border-b-2 border-[#805827] font-semibold text-slate-800"
+                    ? "border-b-2 border-[#FFD700] font-semibold text-slate-800"
                     : "border-b-2 border-transparent font-medium text-slate-500 hover:text-slate-800"
                 }`}
               >

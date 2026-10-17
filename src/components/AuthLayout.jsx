@@ -24,7 +24,7 @@ export default function AuthLayout({ title, subtitle, children, footer }) {
         />
 
         <div className="relative max-w-md">
-          <span className="fade-up inline-block rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-sm font-medium uppercase tracking-wider text-gold">
+          <span className="fade-up inline-block rounded-full bg-gold px-4 py-1.5 text-sm font-semibold uppercase tracking-wider text-slate-800">
             Admission Portal
           </span>
           <h2 style={{ animationDelay: "120ms" }} className="fade-up font-display mt-5 text-4xl font-semibold leading-tight xl:text-5xl">
@@ -51,7 +51,7 @@ export default function AuthLayout({ title, subtitle, children, footer }) {
       <div className="flex items-center justify-center bg-stone-200 px-4 py-10 sm:py-14">
         <div className="fade-up w-full max-w-md" style={{ animationDelay: "150ms" }}>
           <div className="overflow-hidden rounded-2xl bg-white shadow-xl">
-            <div className="h-1.5 bg-[#805827]" />
+            <div className="h-1.5 bg-gold" />
             <div className="p-6 sm:p-8">
               <div className="mb-7 text-center">
                 <img src="/Heading.png" alt="Admito" className="mx-auto mb-3 h-12 w-auto" />

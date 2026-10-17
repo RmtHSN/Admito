@@ -9,7 +9,7 @@ const INTERVAL = 6000; // ms per slide
 const FALLBACK = [
   {
     _id: "f1",
-    bg: "bg-[#2b2418]",
+    bg: "bg-gradient-to-br from-[#4a3213] via-navy to-navy-light",
     title: "Session 2026–27 admissions are open",
     subtitle: "Find your circular and apply in minutes.",
     ctaLabel: "Browse circulars",
@@ -17,7 +17,7 @@ const FALLBACK = [
   },
   {
     _id: "f2",
-    bg: "bg-[#14262e]",
+    bg: "bg-gradient-to-br from-[#0b3b4a] via-navy to-navy-light",
     title: "Never miss a deadline again",
     subtitle: "Reminders for forms, admit cards and exams, automatically.",
     ctaLabel: "Important dates",
@@ -25,7 +25,7 @@ const FALLBACK = [
   },
   {
     _id: "f3",
-    bg: "bg-[#1d2038]",
+    bg: "bg-gradient-to-br from-[#2b2358] via-navy to-navy-light",
     title: "Track every application in one place",
     subtitle: "From submitted to admitted, see exactly where you stand.",
     ctaLabel: "My applications",

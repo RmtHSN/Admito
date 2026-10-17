@@ -9,7 +9,7 @@ export default function PageHero({ badge, title, children, action }) {
 
       <div className="relative mx-auto max-w-5xl text-center">
         {badge && (
-          <span className="fade-up mb-4 inline-block rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-sm font-medium uppercase tracking-wider text-gold">
+          <span className="fade-up mb-4 inline-block rounded-full bg-gold px-4 py-1.5 text-sm font-semibold uppercase tracking-wider text-slate-800">
             {badge}
           </span>
         )}

@@ -9,7 +9,7 @@ const CATS = {
   deadline: { label: "Deadline", dot: "bg-red-500", tint: "bg-red-50 text-red-700" },
   form: { label: "Form fill-up", dot: "bg-blue-500", tint: "bg-blue-50 text-blue-700" },
   admit_card: { label: "Admit card", dot: "bg-purple-500", tint: "bg-purple-50 text-purple-700" },
-  exam: { label: "Exam", dot: "bg-[#805827]", tint: "bg-[#805827]/10 text-[#805827]" },
+  exam: { label: "Exam", dot: "bg-[#FFD700]", tint: "bg-yellow-50 text-[#805827]" },
   result: { label: "Result", dot: "bg-emerald-500", tint: "bg-emerald-50 text-emerald-700" },
 };
 
@@ -146,7 +146,7 @@ function CalendarView({ events, monthDate, setMonthDate }) {
                   isActive
                     ? "border-navy bg-navy text-white shadow"
                     : isToday
-                      ? "border-[#805827] bg-[#805827]/10 text-slate-800"
+                      ? "border-gold bg-gold/10 text-slate-800"
                       : "border-transparent text-slate-700 hover:border-slate-200 hover:bg-stone-50"
                 }`}
               >

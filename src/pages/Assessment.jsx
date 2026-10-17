@@ -9,7 +9,7 @@ const GROUP_STYLES = {
 };
 
 const TYPE_BADGE = {
-  public: "bg-[#805827]/10 text-[#805827] border border-[#805827]/20",
+  public: "bg-gold/20 text-amber-700 border border-gold/40",
   private: "bg-indigo-100 text-indigo-800",
 };
 
@@ -99,7 +99,7 @@ export default function Assessment() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search university or unit..."
-              className="w-full pl-9 pr-3 py-2.5 rounded-lg border border-slate-300 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-[#805827]/30 focus:border-[#805827]"
+              className="w-full pl-9 pr-3 py-2.5 rounded-lg border border-slate-300 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold"
             />
           </div>
 
@@ -110,8 +110,8 @@ export default function Assessment() {
                 onClick={() => setGroupFilter(g)}
                 className={`px-3.5 py-2 rounded-lg text-sm font-medium border transition-colors ${
                   groupFilter === g
-                    ? "bg-navy text-white border-navy"
-                    : "bg-white text-slate-600 border-slate-300 hover:border-slate-400"
+                    ? "bg-gold text-slate-800 border-gold"
+                    : "bg-white text-slate-600 border-slate-300 hover:border-gold/50"
                 }`}
               >
                 {g === "all" ? "All Groups" : g}
@@ -324,7 +324,7 @@ export default function Assessment() {
 
                               <div className="w-full h-2 bg-stone-100 rounded-full overflow-hidden">
                                 <div
-                                  className="h-full bg-[#805827] rounded-full origin-left"
+                                  className="h-full bg-gold rounded-full origin-left"
                                   style={{ width: `${pct}%`, animation: "draw 0.9s cubic-bezier(.2,.7,.2,1) both" }}
                                 ></div>
                               </div>
