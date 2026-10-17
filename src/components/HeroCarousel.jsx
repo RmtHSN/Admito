@@ -135,7 +135,7 @@ export default function HeroCarousel() {
         onTouchEnd={onTouchEnd}
         className="absolute inset-x-0 bottom-0 z-10 outline-none"
       >
-        <div className="mx-auto flex max-w-screen-xl flex-col gap-4 px-4 pb-6 sm:flex-row sm:items-end sm:justify-between lg:px-12">
+        <div className="mx-auto flex max-w-screen-xl flex-col gap-4 px-4 pb-6 sm:flex-row sm:items-end sm:justify-between lg:px-10">
           <div key={cur._id} className="fade-up min-h-[3.5rem] text-left" aria-live="polite">
             {cur.title && <p className="font-display text-lg font-semibold text-white sm:text-xl">{cur.title}</p>}
             {cur.subtitle && <p className="mt-0.5 text-sm text-slate-200">{cur.subtitle}</p>}
