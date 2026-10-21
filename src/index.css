@@ -21,6 +21,27 @@
  
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: var(--nav-h);
+  -webkit-text-size-adjust: 100%;
+}
+
+/* navbar height, shared by the navbar, the page offset and full-height layouts */
+:root { --nav-h: 3.5rem; }
+@media (min-width: 768px)  { :root { --nav-h: 5rem; } }
+@media (min-width: 1024px) { :root { --nav-h: 6rem; } }
+
+body { overflow-x: hidden; }
+
+/* PHONE SCALE: Tailwind sizes are rem-based, so shrinking the root size makes
+   text, padding and icons all proportionally smaller on phones. */
+@media (max-width: 639px) {
+  html { font-size: 14.5px; }
+  /* 16px inputs stop iOS from zooming the page when a field is focused */
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]),
+  select, textarea { font-size: 16px; }
+}
+@media (max-width: 380px) {
+  html { font-size: 13.5px; }
 }
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -59,14 +80,9 @@ html {
 .ticker:hover .ticker-track { animation-play-state: paused; }
 .page-enter   { animation: fade-up .5s cubic-bezier(.2, .7, .2, 1) both; }
 
-/* gold text that slowly shimmers: use on the word "Admito" */
+/* accent word in headings (kept as a class name so existing markup still works) */
 .shimmer-text {
-  background: linear-gradient(90deg, #ffd700 0%, #fff3a3 40%, #ffd700 80%);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation: shimmer 5s linear infinite;
+  color: var(--color-gold);
 }
 
 /* scroll reveal (see components/Reveal.jsx) */
@@ -79,6 +95,6 @@ html {
 
 @media (prefers-reduced-motion: reduce) {
   .fade-up, .fade-in, .page-enter { animation: none; opacity: 1; }
-  .kenburns, .float-y, .spin-slow, .ticker-track, .shimmer-text { animation: none; }
+  .kenburns, .float-y, .spin-slow, .ticker-track { animation: none; }
   .reveal { opacity: 1; transform: none; transition: none; }
 }

@@ -18,6 +18,12 @@ const BellIcon = () => (
   </svg>
 );
 
+const CalendarIcon = () => (
+  <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M6.75 2.25a.75.75 0 01.75.75v1.5h9V3a.75.75 0 011.5 0v1.5h.75a3 3 0 013 3V9H2.25V7.5a3 3 0 013-3H6V3a.75.75 0 01.75-.75zM2.25 10.5h19.5v8.25a3 3 0 01-3 3H5.25a3 3 0 01-3-3V10.5z" />
+  </svg>
+);
+
 const UserIcon = () => (
   <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
     <path
@@ -106,7 +112,7 @@ export default function Navbar() {
     <nav className="fixed top-0 inset-x-0 z-50 bg-slate-800 backdrop-blur-lg">
       {/*nav bar bg atke rakhte backdrop-blur use kora hoise*/}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16 md:h-20 lg:h-24">
+        <div className="flex justify-between items-center h-14 md:h-20 lg:h-24">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 group shrink-0">
             <div className="relative w-8 h-8">
@@ -134,6 +140,15 @@ export default function Navbar() {
               </NavLink>
             ))}
 
+            <NavLink
+              to="/important-dates"
+              aria-label="Important dates"
+              title="Important dates"
+              className={linkClass}
+            >
+              <CalendarIcon />
+            </NavLink>
+
             <Link
               to="/notifications"
               aria-label="Notifications"
@@ -157,7 +172,15 @@ export default function Navbar() {
           </div>
 
           {/* Mobile: bell + hamburger */}
-          <div className="flex md:hidden items-center gap-4">
+          <div className="flex md:hidden items-center gap-3">
+            <NavLink
+              to="/important-dates"
+              aria-label="Important dates"
+              className={linkClass}
+            >
+              <CalendarIcon />
+            </NavLink>
+
             <Link
               to="/notifications"
               aria-label="Notifications"

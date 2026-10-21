@@ -6,14 +6,14 @@ export default function Features() {
     <section id="features" className="bg-stone-200">
       <div className="py-10 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-6">
 
-        <h2 className="mb-4 text-3xl font-semibold tracking-tight text-slate-800 md:text-4xl">
+        <h2 className="mb-3 text-2xl font-semibold tracking-tight text-slate-800 sm:text-3xl md:text-4xl">
           Everything your admission needs, in one place
         </h2>
-        <p className="mb-12 font-normal text-slate-500 lg:text-lg sm:px-16 xl:px-48">
+        <p className="mb-8 font-normal text-slate-500 sm:mb-12 lg:text-lg sm:px-16 xl:px-48">
           Here's what you'll find as soon as you log in to Admito
         </p>
 
-        <div className="grid pt-8 text-left border-t border-slate-300 md:grid-cols-3 md:gap-12">
+        <div className="grid gap-1 pt-4 text-left sm:pt-8 border-t border-slate-300 md:grid-cols-3 md:gap-12">
 
           {/* Recent Circulars */}
           <Reveal delay={0} className="card-lift rounded-2xl p-5">

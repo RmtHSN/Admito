@@ -9,7 +9,7 @@ const INTERVAL = 6000; // ms per slide
 const FALLBACK = [
   {
     _id: "f1",
-    bg: "from-[#4a3213] via-navy to-navy-light",
+    bg: "bg-gradient-to-br from-[#4a3213] via-navy to-navy-light",
     title: "Session 2026–27 admissions are open",
     subtitle: "Find your circular and apply in minutes.",
     ctaLabel: "Browse circulars",
@@ -17,7 +17,7 @@ const FALLBACK = [
   },
   {
     _id: "f2",
-    bg: "from-[#0b3b4a] via-navy to-navy-light",
+    bg: "bg-gradient-to-br from-[#0b3b4a] via-navy to-navy-light",
     title: "Never miss a deadline again",
     subtitle: "Reminders for forms, admit cards and exams, automatically.",
     ctaLabel: "Important dates",
@@ -25,7 +25,7 @@ const FALLBACK = [
   },
   {
     _id: "f3",
-    bg: "from-[#2b2358] via-navy to-navy-light",
+    bg: "bg-gradient-to-br from-[#2b2358] via-navy to-navy-light",
     title: "Track every application in one place",
     subtitle: "From submitted to admitted, see exactly where you stand.",
     ctaLabel: "My applications",
@@ -114,7 +114,7 @@ export default function HeroCarousel() {
                 className={`h-full w-full object-cover ${i === index ? "kenburns" : ""}`}
               />
             ) : (
-              <div className={`h-full w-full bg-gradient-to-br ${s.bg}`} />
+              <div className={`h-full w-full ${s.bg}`} />
             )}
           </div>
         ))}
@@ -135,10 +135,10 @@ export default function HeroCarousel() {
         onTouchEnd={onTouchEnd}
         className="absolute inset-x-0 bottom-0 z-10 outline-none"
       >
-        <div className="mx-auto flex max-w-screen-xl flex-col gap-4 px-4 pb-6 sm:flex-row sm:items-end sm:justify-between lg:px-12">
-          <div key={cur._id} className="fade-up min-h-[3.5rem] text-left" aria-live="polite">
-            {cur.title && <p className="font-display text-lg font-semibold text-white sm:text-xl">{cur.title}</p>}
-            {cur.subtitle && <p className="mt-0.5 text-sm text-slate-200">{cur.subtitle}</p>}
+        <div className="relative mx-auto flex max-w-screen-xl flex-col items-center gap-3 px-4 pb-[4.5rem] sm:gap-4 sm:pb-24 lg:px-12">
+          <div key={cur._id} className="fade-up min-h-[3.5rem] text-center" aria-live="polite">
+            {cur.title && <p className="font-display text-base font-semibold text-white sm:text-xl">{cur.title}</p>}
+            {cur.subtitle && <p className="mt-0.5 text-[0.8rem] text-slate-200 sm:text-sm">{cur.subtitle}</p>}
             {cur.ctaLabel && cur.ctaLink && (
               <div className="mt-2">
                 <Cta to={cur.ctaLink}>{cur.ctaLabel}</Cta>
@@ -147,7 +147,7 @@ export default function HeroCarousel() {
           </div>
 
           {count > 1 && (
-            <div className="flex items-center gap-3 self-start sm:self-auto">
+            <div className="flex items-center gap-3 sm:absolute sm:bottom-24 sm:right-6 lg:right-20">
               <button type="button" onClick={() => go(index - 1)} aria-label="Previous slide" className={arrow}>‹</button>
               <div className="flex items-center gap-2">
                 {slides.map((s, i) => (

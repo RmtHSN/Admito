@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import PageHero from "../components/PageHero";
+import { Reveal, CountUp } from "../components/Reveal";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
@@ -119,6 +121,7 @@ function Timeline({ steps }) {
 }
 
 function ApplicationCard({ app, onWithdraw, withdrawing }) {
+  const [showTimeline, setShowTimeline] = useState(false);
   const steps = app.timeline || [];
   const doneCount = steps.filter((s) => s.done).length;
   const percent = steps.length ? Math.round((doneCount / steps.length) * 100) : 0;
@@ -126,81 +129,99 @@ function ApplicationCard({ app, onWithdraw, withdrawing }) {
   const current = steps.find((s) => s.current);
 
   return (
-    <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-      {/* Top: university + application number */}
-      <div className="flex flex-wrap items-start justify-between gap-3">
-        <div>
-          <h2 className="text-lg font-semibold text-slate-800">{app.university}</h2>
-          <p className="text-sm text-gray-500">{app.unit}</p>
+    <article className="card-lift overflow-hidden rounded-2xl bg-white shadow-sm">
+      <div className="h-1.5 bg-gold" />
+      <div className="p-5 sm:p-6">
+        {/* university + application number */}
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <div className="min-w-0">
+            <h2 className="font-display text-xl font-semibold text-slate-800">{app.university}</h2>
+            <p className="text-sm text-slate-500">{app.unit}</p>
+          </div>
+          <div className="rounded-lg bg-[#805827]/10 px-3 py-1.5 text-right">
+            <p className="text-[10px] font-medium uppercase tracking-wide text-[#805827]/70">Application no.</p>
+            <p className="font-mono text-sm font-semibold text-[#805827]">{app.applicationNo}</p>
+          </div>
         </div>
-        <div className="text-right">
-          <p className="text-[11px] uppercase tracking-wide text-slate-400">
-            Application no.
+
+        <p className="mt-3 text-sm text-slate-700">{app.title}</p>
+        <p className="mt-1 text-xs text-slate-400">Applied on {formatDate(app.createdAt)} · Demo application</p>
+
+        {/* progress */}
+        <div className="mt-5 rounded-xl bg-stone-50 p-4">
+          <div className="mb-2 flex flex-wrap items-center justify-between gap-x-3 gap-y-1 text-xs">
+            <span className="inline-flex items-center gap-1.5 font-semibold text-slate-700">
+              <span className="h-2 w-2 rounded-full bg-gold" />
+              {current ? STEP_LABELS[current.key] || current.title : "Not started"}
+            </span>
+            <span className="text-slate-400">
+              {doneCount} of {steps.length} steps · {percent}%
+            </span>
+          </div>
+          <div className="h-2.5 w-full overflow-hidden rounded-full bg-slate-200">
+            <div
+              className="h-full origin-left rounded-full bg-gold"
+              style={{ width: `${percent}%`, animation: "draw 1s cubic-bezier(.2,.7,.2,1) both" }}
+            />
+          </div>
+          <p className="mt-3 text-sm text-slate-600">
+            {next ? (
+              <>
+                <span className="font-medium text-slate-800">Next:</span> {STEP_LABELS[next.key] || next.title}{" "}
+                <span className="font-medium text-[#805827]">{relativeText(next.date)}</span>{" "}
+                <span className="text-slate-400">({formatDate(next.date)})</span>
+              </>
+            ) : (
+              "All announced steps are complete. Waiting for the next update."
+            )}
           </p>
-          <p className="font-mono text-sm font-semibold text-[#805827]">
-            {app.applicationNo}
-          </p>
         </div>
-      </div>
 
-      <p className="mt-3 text-sm text-gray-700">{app.title}</p>
-      <p className="mt-1 text-xs text-slate-400">
-        Applied on {formatDate(app.createdAt)} · Demo application
-      </p>
-
-      {/* Progress */}
-      <div style={{ marginTop: 20 }}>
-        <div className="mb-1.5 flex items-center justify-between text-xs">
-          <span className="font-semibold text-slate-700">
-            {current ? STEP_LABELS[current.key] || current.title : "Not started"}
-          </span>
-          <span className="text-slate-400">
-            {doneCount} of {steps.length} steps
-          </span>
-        </div>
-        <div className="h-2 w-full overflow-hidden rounded-full bg-slate-100">
-          <div
-            className="h-full rounded-full bg-[#805827] transition-all"
-            style={{ width: `${percent}%` }}
-          />
-        </div>
-        <p className="mt-2 text-xs text-slate-500">
-          {next
-            ? `Next: ${STEP_LABELS[next.key] || next.title} ${relativeText(next.date)} (${formatDate(next.date)})`
-            : "All announced steps are complete. Waiting for the next update."}
-        </p>
-      </div>
-
-      {/* Timeline */}
-      <div className="border-t border-slate-100" style={{ marginTop: 20, paddingTop: 20 }}>
-        <Timeline steps={steps} />
-      </div>
-
-      {/* Actions */}
-      <div
-        className="flex flex-wrap items-center gap-3 border-t border-slate-100"
-        style={{ marginTop: 20, paddingTop: 16 }}
-      >
-        {app.circular?.link && (
-          <a
-            href={app.circular.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm font-medium text-[#805827] hover:underline"
-          >
-            View official circular
-          </a>
+        {/* timeline (collapsed by default to keep the page light) */}
+        {steps.length > 0 && (
+          <div className="mt-4">
+            <button
+              type="button"
+              onClick={() => setShowTimeline((v) => !v)}
+              aria-expanded={showTimeline}
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-[#805827] hover:underline"
+            >
+              {showTimeline ? "Hide timeline" : "View full timeline"}
+              <svg className={`h-4 w-4 transition-transform ${showTimeline ? "rotate-180" : ""}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            {showTimeline && (
+              <div className="fade-in mt-4 border-t border-slate-100 pt-5">
+                <Timeline steps={steps} />
+              </div>
+            )}
+          </div>
         )}
-        <button
-          type="button"
-          onClick={() => onWithdraw(app)}
-          disabled={withdrawing}
-          className="ml-auto text-sm font-medium text-red-600 hover:underline disabled:opacity-50"
-        >
-          {withdrawing ? "Withdrawing..." : "Withdraw"}
-        </button>
+
+        {/* actions */}
+        <div className="mt-5 flex flex-wrap items-center gap-3 border-t border-slate-100 pt-4">
+          {app.circular?.link && (
+            <a
+              href={app.circular.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm font-medium text-[#805827] hover:underline"
+            >
+              View official circular
+            </a>
+          )}
+          <button
+            type="button"
+            onClick={() => onWithdraw(app)}
+            disabled={withdrawing}
+            className="ml-auto rounded-lg border border-red-200 px-3 py-1.5 text-sm font-medium text-red-600 transition hover:bg-red-50 disabled:opacity-50"
+          >
+            {withdrawing ? "Withdrawing..." : "Withdraw"}
+          </button>
+        </div>
       </div>
-    </div>
+    </article>
   );
 }
 
@@ -268,40 +289,77 @@ export default function Applications() {
     }
   };
 
-  return (
-    <div className="min-h-screen bg-stone-200 pt-20 sm:pt-24 md:pt-28 lg:pt-32">
-      <div className="mx-auto max-w-4xl px-6 pb-6">
-        <h1 className="text-3xl font-semibold text-slate-800">My Applications</h1>
-        <p className="mt-1 text-sm text-slate-500">
-          Track every demo application you have made. Progress updates automatically
-          from each university's important dates.
-        </p>
-      </div>
+  // quick numbers across all applications
+  const totalSteps = applications.reduce((n, a) => n + (a.timeline?.length || 0), 0);
+  const doneSteps = applications.reduce((n, a) => n + (a.timeline || []).filter((t) => t.done).length, 0);
+  const upcoming = applications
+    .flatMap((a) => (a.timeline || []).filter((t) => !t.done && t.date).map((t) => ({ ...t, university: a.university })))
+    .sort((x, y) => new Date(x.date) - new Date(y.date))[0];
 
-      <div className="mx-auto max-w-4xl px-6 pb-20">
+  return (
+    <div className="min-h-screen bg-stone-200 pb-16">
+      <PageHero badge="Tracker" title="My Applications">
+        Track every application you have made. Progress updates automatically
+        from each university's important dates.
+      </PageHero>
+
+      <div className="relative z-10 mx-auto -mt-8 max-w-4xl px-4">
+        {!loading && !error && applications.length > 0 && (
+          <div className="fade-up mb-6 grid gap-3 rounded-2xl bg-white p-4 shadow-md sm:grid-cols-3" style={{ animationDelay: "250ms" }}>
+            <div className="px-3 py-2">
+              <p className="font-display text-3xl font-semibold leading-none text-slate-800">
+                <CountUp to={applications.length} />
+              </p>
+              <p className="mt-1 text-xs font-medium uppercase tracking-wide text-slate-500">Applications</p>
+            </div>
+            <div className="px-3 py-2">
+              <p className="font-display text-3xl font-semibold leading-none text-slate-800">
+                <CountUp to={doneSteps} />
+                <span className="text-lg text-slate-400"> / {totalSteps}</span>
+              </p>
+              <p className="mt-1 text-xs font-medium uppercase tracking-wide text-slate-500">Steps completed</p>
+            </div>
+            <div className="px-3 py-2">
+              <p className="font-display text-xl font-semibold leading-tight text-[#805827]">
+                {upcoming ? relativeText(upcoming.date) : "All caught up"}
+              </p>
+              <p className="mt-1 truncate text-xs font-medium uppercase tracking-wide text-slate-500">
+                {upcoming ? `${STEP_LABELS[upcoming.key] || upcoming.title} · ${upcoming.university}` : "No upcoming steps"}
+              </p>
+            </div>
+          </div>
+        )}
+
         {loading && (
-          <p className="py-10 text-center text-sm text-slate-400">
-            Loading your applications...
-          </p>
+          <ul className="space-y-4" aria-busy="true">
+            {[0, 1].map((i) => (
+              <li key={i} className="animate-pulse rounded-2xl bg-white p-6">
+                <div className="h-5 w-1/2 rounded bg-stone-200" />
+                <div className="mt-3 h-3 w-1/3 rounded bg-stone-100" />
+                <div className="mt-6 h-20 rounded-xl bg-stone-100" />
+              </li>
+            ))}
+          </ul>
         )}
 
         {!loading && error && (
-          <p className="mb-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600">
-            {error}
-          </p>
+          <p className="mb-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600">{error}</p>
         )}
 
         {!loading && !error && applications.length === 0 && (
-          <div className="rounded-xl border border-slate-200 bg-white p-10 text-center">
-            <p className="mb-1 text-lg font-semibold text-slate-800">
-              No applications yet
-            </p>
+          <div className="rounded-2xl bg-white p-8 text-center shadow-md sm:p-10">
+            <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-gold/20 text-[#805827]">
+              <svg className="h-7 w-7" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                <path d="M19.5 14.25v-2.63a3.38 3.38 0 00-3.38-3.37h-1.5A1.13 1.13 0 0113.5 7.13v-1.5a3.38 3.38 0 00-3.38-3.38H8.25m2.25 0H5.63c-.62 0-1.13.5-1.13 1.12v17.25c0 .62.5 1.13 1.13 1.13h12.75c.62 0 1.12-.5 1.12-1.13V11.25a9 9 0 00-9-9z" />
+              </svg>
+            </div>
+            <p className="mb-1 font-display text-xl font-semibold text-slate-800">No applications yet</p>
             <p className="mb-5 text-sm text-slate-500">
               Pick a circular and press "Apply (demo)" to get started.
             </p>
             <Link
               to="/circulars"
-              className="inline-block rounded-lg bg-[#805827] px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-[#6b4620]"
+              className="inline-block rounded-lg bg-[#805827] px-5 py-2.5 text-sm font-medium text-white shadow-md transition hover:-translate-y-0.5 hover:bg-[#6b4620]"
             >
               Browse circulars
             </Link>
@@ -309,14 +367,15 @@ export default function Applications() {
         )}
 
         {!loading && applications.length > 0 && (
-          <div className="space-y-4">
-            {applications.map((app) => (
-              <ApplicationCard
-                key={app._id}
-                app={app}
-                onWithdraw={handleWithdraw}
-                withdrawing={withdrawingId === app._id}
-              />
+          <div className="space-y-5">
+            {applications.map((app, i) => (
+              <Reveal key={app._id} delay={Math.min(i, 4) * 80}>
+                <ApplicationCard
+                  app={app}
+                  onWithdraw={handleWithdraw}
+                  withdrawing={withdrawingId === app._id}
+                />
+              </Reveal>
             ))}
           </div>
         )}

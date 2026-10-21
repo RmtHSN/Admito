@@ -51,11 +51,11 @@ export default function Contact() {
   };
 
   return (
-    <section className="min-h-screen bg-stone-200 py-16 px-4">
+    <section className="min-h-screen bg-stone-200 py-10 px-4 sm:py-16">
       <div className="max-w-screen-xl mx-auto">
 
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-semibold text-slate-800 md:text-5xl">
+          <h1 className="text-3xl font-semibold text-slate-800 sm:text-4xl md:text-5xl">
             Contact Us
           </h1>
 

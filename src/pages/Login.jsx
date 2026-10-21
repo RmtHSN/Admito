@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { Eye, EyeOff } from "lucide-react";
+import { Mail, Lock } from "lucide-react";
+import AuthLayout, { Field, Notice, submitBtn } from "../components/AuthLayout";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -10,7 +11,6 @@ export default function Login() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -51,99 +51,50 @@ export default function Login() {
   };
 
   return (
-    <section className="relative min-h-screen overflow-hidden bg-slate-800 flex items-center justify-center px-4">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
-
-        <div className="text-center mb-8">
-          <img
-            src="/Heading.png"
-            alt="Admito"
-            className="w-20 h-15 mx-auto mb-3"
-          />
-
-          <h1 className="text-3xl font-bold text-[#805827]">
-            Welcome Back
-          </h1>
-
-          <p className="text-slate-600 mt-2">
-            Login to your Admito account
-          </p>
-        </div>
-
-        {error && (
-          <p className="text-red-600 text-sm text-center mb-4">{error}</p>
-        )}
-
-        {success && (
-          <p className="text-green-600 text-sm text-center mb-4">{success}</p>
-        )}
-
-        <form className="space-y-5" onSubmit={handleSubmit}>
-          <div>
-            <label className="block text-sm font-medium text-slate-700 mb-2">
-              Email
-            </label>
-
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="Enter your email"
-              required
-              disabled={loading || success}
-              className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#805827]"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-slate-700 mb-2">
-              Password
-            </label>
-
-            <div className="relative">
-              <input
-                type={showPassword ? "text" : "password"}
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                placeholder="Enter your password"
-                required
-                disabled={loading || success}
-                className="w-full px-4 py-3 pr-11 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#805827]"
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword((prev) => !prev)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-[#805827]"
-                aria-label={showPassword ? "Hide password" : "Show password"}
-                tabIndex={-1}
-              >
-                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-              </button>
-            </div>
-          </div>
-
-          <button
-            type="submit"
-            disabled={loading || success}
-            className="w-full bg-[#805827] text-white py-3 rounded-lg font-medium hover:bg-[#6b4620] transition-colors duration-300 disabled:opacity-50"
-          >
-            {loading ? "Logging in..." : success ? "Redirecting..." : "Login"}
-          </button>
-        </form>
-
-        <p className="text-center text-sm text-slate-600 mt-6">
+    <AuthLayout
+      title="Welcome Back"
+      subtitle="Login to your Admito account"
+      footer={
+        <>
           Don't have an account?{" "}
-          <Link
-            to="/signup"
-            className="text-[#805827] font-medium cursor-pointer hover:text-[#FFD700]"
-          >
+          <Link to="/signup" className="font-semibold text-[#805827] hover:text-[#6b4620] hover:underline">
             Sign Up
           </Link>
-        </p>
+        </>
+      }
+    >
+      <Notice error={error} success={success} />
 
-      </div>
-    </section>
+      <form className="space-y-5" onSubmit={handleSubmit}>
+        <Field
+          label="Email"
+          icon={Mail}
+          type="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          placeholder="you@example.com"
+          autoComplete="email"
+          required
+          disabled={loading || success}
+        />
+        <Field
+          label="Password"
+          icon={Lock}
+          type="password"
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
+          placeholder="Enter your password"
+          autoComplete="current-password"
+          required
+          disabled={loading || success}
+        />
+
+        <button type="submit" disabled={loading || success} className={submitBtn}>
+          {loading ? "Logging in..." : success ? "Redirecting..." : "Login"}
+        </button>
+      </form>
+    </AuthLayout>
   );
 }

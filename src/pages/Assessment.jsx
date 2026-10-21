@@ -1,4 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
+import PageHero from "../components/PageHero";
+import { Reveal } from "../components/Reveal";
 
 const GROUP_STYLES = {
   Science: "bg-blue-100 text-blue-800",
@@ -68,31 +70,15 @@ export default function Assessment() {
 
   return (
     <section className="min-h-screen bg-stone-200">
-      <div className="relative overflow-hidden bg-gradient-to-b from-navy to-navy-light pt-4 sm:pt-6 md:pt-8 pb-12 px-4">
-        <div className="pointer-events-none absolute -top-20 -right-20 h-80 w-80 rounded-full border border-amber-700"></div>
+      <PageHero badge="Exam Guide" title="Assessment & Mark Distribution">
+        Compare eligibility, subject-wise mark breakdown, and exam patterns
+        across public and private universities in Bangladesh — know exactly
+        what to prepare for, before you apply.
+      </PageHero>
 
-        <div className="pointer-events-none absolute top-10 right-5 h-52 w-52 rounded-full border border-gold/15"></div>
-
-        <div className="relative max-w-5xl mx-auto text-center">
-          <span className="inline-block text-xl font-semibold text-slate-800 bg-gold rounded-full px-1 py-1.5 mb-4">
-            Exam Guide
-          </span>
-
-          <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-slate-800 mb-3">
-            Assessment &amp; Mark Distribution
-          </h1>
-
-          <p className="text-amber-700 max-w-2xl mx-auto lg:text-lg">
-            Compare eligibility, subject-wise mark breakdown, and exam patterns
-            across public and private universities in Bangladesh — know exactly
-            what to prepare for, before you apply.
-          </p>
-        </div>
-      </div>
-
-      <div className="max-w-5xl mx-auto px-4 -mt-8 pb-16">
+      <div className="relative z-10 max-w-5xl mx-auto px-4 -mt-8 pb-16">
         {/* Search + group filter */}
-        <div className="bg-white rounded-xl shadow-md p-4 mb-6 flex flex-col md:flex-row gap-3 md:items-center">
+        <div className="fade-up bg-white rounded-xl shadow-md p-4 mb-6 flex flex-col md:flex-row gap-3 md:items-center" style={{ animationDelay: "300ms" }}>
           <div className="relative flex-1">
             <svg
               className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"
@@ -140,13 +126,14 @@ export default function Assessment() {
 
         {/* Accordion list */}
         <div className="space-y-4">
-          {filtered.map((u) => {
+          {filtered.map((u, idx) => {
             const isOpen = expandedId === u._id;
 
             return (
-              <div
+              <Reveal
                 key={u._id}
-                className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden"
+                delay={Math.min(idx, 5) * 80}
+                className="card-lift bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden"
               >
                 {/* Header — always visible */}
                 <button
@@ -201,7 +188,7 @@ export default function Assessment() {
 
                 {/* Expanded detail */}
                 {isOpen && (
-                  <div className="px-5 pb-5 pt-1 border-t border-slate-100">
+                  <div className="fade-in px-5 pb-5 pt-1 border-t border-slate-100">
                     <div className="grid md:grid-cols-2 gap-6 mt-4">
                       {/* Eligibility */}
                       <div>
@@ -337,8 +324,8 @@ export default function Assessment() {
 
                               <div className="w-full h-2 bg-stone-100 rounded-full overflow-hidden">
                                 <div
-                                  className="h-full bg-gold rounded-full"
-                                  style={{ width: `${pct}%` }}
+                                  className="h-full bg-gold rounded-full origin-left"
+                                  style={{ width: `${pct}%`, animation: "draw 0.9s cubic-bezier(.2,.7,.2,1) both" }}
                                 ></div>
                               </div>
                             </div>
@@ -348,7 +335,7 @@ export default function Assessment() {
                     </div>
                   </div>
                 )}
-              </div>
+              </Reveal>
             );
           })}
 

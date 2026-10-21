@@ -354,7 +354,7 @@ export default function Apply() {
   };
 
   const pageWrapper = (children) => (
-    <section className="min-h-screen bg-stone-200 pt-24 sm:pt-28 md:pt-32 pb-16 px-4">
+    <section className="min-h-screen bg-stone-200 pt-8 sm:pt-12 md:pt-16 pb-16 px-4">
       <div className="max-w-3xl mx-auto">{children}</div>
     </section>
   );
