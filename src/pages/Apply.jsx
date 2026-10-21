@@ -1,7 +1,7 @@
+import { API_URL } from "../utils/config";
 import { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
 const STATUS_PATH = "/applications";
 
@@ -354,7 +354,7 @@ export default function Apply() {
   };
 
   const pageWrapper = (children) => (
-    <section className="min-h-screen bg-stone-200 pt-24 sm:pt-28 md:pt-32 pb-16 px-4">
+    <section className="min-h-screen bg-stone-200 pt-8 sm:pt-12 md:pt-16 pb-16 px-4">
       <div className="max-w-3xl mx-auto">{children}</div>
     </section>
   );

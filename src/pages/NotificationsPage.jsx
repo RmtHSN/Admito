@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import PageHero from "../components/PageHero";
 import { Link } from "react-router-dom";
 import { apiFetch } from "../utils/api";
 
@@ -49,77 +50,83 @@ function timeAgo(dateStr) {
   });
 }
 
-const bellIcon = (
-  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-    <path
-      fillRule="evenodd"
-      d="M5.25 9a6.75 6.75 0 0113.5 0v.75c0 2.123.8 4.057 2.118 5.52a.75.75 0 01-.297 1.206c-1.544.57-3.16.99-4.831 1.243a3.75 3.75 0 11-7.48 0 24.585 24.585 0 01-4.831-1.244.75.75 0 01-.298-1.205A8.217 8.217 0 005.25 9.75V9zm4.502 8.9a2.25 2.25 0 104.496 0 25.057 25.057 0 01-4.496 0z"
-      clipRule="evenodd"
-    />
+// ---------- category colours (same idea as the Important Dates page) ----------
+
+const ico = (d) => (
+  <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24" aria-hidden="true">
+    <path d={d} />
   </svg>
 );
+
+const CATS = {
+  deadline: { label: "Deadline", dot: "bg-red-500", tint: "bg-red-50 text-red-600", bar: "bg-red-500", chip: "bg-red-50 text-red-700", icon: ico("M12 6v6l4 2m6-2a10 10 0 11-20 0 10 10 0 0120 0z") },
+  circular: { label: "Circular", dot: "bg-blue-500", tint: "bg-blue-50 text-blue-600", bar: "bg-blue-500", chip: "bg-blue-50 text-blue-700", icon: ico("M3 8l9-5 9 5-9 5-9-5zm0 0v8l9 5 9-5V8") },
+  status: { label: "Status", dot: "bg-purple-500", tint: "bg-purple-50 text-purple-600", bar: "bg-purple-500", chip: "bg-purple-50 text-purple-700", icon: ico("M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4") },
+  success: { label: "Good news", dot: "bg-emerald-500", tint: "bg-emerald-50 text-emerald-600", bar: "bg-emerald-500", chip: "bg-emerald-50 text-emerald-700", icon: ico("M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z") },
+  alert: { label: "Attention", dot: "bg-orange-500", tint: "bg-orange-50 text-orange-600", bar: "bg-orange-500", chip: "bg-orange-50 text-orange-700", icon: ico("M12 9v4m0 4h.01M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z") },
+  general: { label: "Update", dot: "bg-[#FFD700]", tint: "bg-yellow-50 text-[#805827]", bar: "bg-[#FFD700]", chip: "bg-yellow-50 text-[#805827]", icon: ico("M15 17h5l-1.4-1.4A2 2 0 0118 14.2V11a6 6 0 10-12 0v3.2a2 2 0 01-.6 1.4L4 17h5m6 0a3 3 0 11-6 0") },
+};
+
+// The backend doesn't send a colour, so work it out from the type field when there is one,
+// otherwise from the wording of the notification.
+function categoryOf(n) {
+  const text = `${n.type || ""} ${n.category || ""} ${n.title || ""} ${n.message || ""} ${n.link || ""}`.toLowerCase();
+  if (/reject|declin|incomplete|missing|failed|action required|correction/.test(text)) return CATS.alert;
+  if (/admit(ted)?\b|accept|approved|selected|shortlist|congrat|merit|result|success/.test(text)) return CATS.success;
+  if (/deadline|last date|closing|closes|due|expire|reminder|ends? (today|tomorrow|soon)/.test(text)) return CATS.deadline;
+  if (/circular/.test(text)) return CATS.circular;
+  if (/status|application|submitted|review|apply/.test(text)) return CATS.status;
+  return CATS.general;
+}
 
 // ---------- one notification card ----------
 
 function NotificationItem({ n, onRead }) {
   const unread = !n.read;
+  const cat = categoryOf(n);
   const ctaClass =
-    "mt-2 inline-block text-xs font-semibold text-[#805827] hover:text-[#FFD700]";
+    "mt-2 inline-flex items-center gap-1 text-xs font-semibold text-[#805827] transition hover:text-slate-800";
   const ctaLabel = `${n.linkLabel || "View details"} →`;
   const isExternal = n.link && /^https?:\/\//i.test(n.link);
 
   return (
-    <div
+    <li
       onClick={() => unread && onRead(n._id)}
-      className={`relative flex gap-4 rounded-xl border border-slate-200 p-4 transition hover:shadow-md ${
-        unread ? "cursor-pointer bg-white" : "bg-white/60"
+      className={`relative flex gap-3 overflow-hidden rounded-xl bg-white p-3 shadow-sm sm:gap-4 sm:p-4 ${
+        unread ? "card-lift cursor-pointer" : "opacity-70"
       }`}
     >
-      {unread && (
-        <span className="absolute left-0 top-0 h-full w-1 rounded-l-xl bg-[#FFD700]" />
-      )}
-      <div
-        className={`ml-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${
-          unread
-            ? "bg-[#805827]/10 text-[#805827]"
-            : "bg-slate-100 text-slate-400"
-        }`}
-      >
-        {bellIcon}
+      {unread && <span className={`absolute inset-y-0 left-0 w-1 ${cat.bar}`} />}
+      <div className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-lg sm:h-12 sm:w-12 ${cat.tint}`}>
+        {cat.icon}
       </div>
-      <div className="flex-1">
+      <div className="min-w-0 flex-1">
         <div className="flex items-start justify-between gap-2">
-          <p
-            className={`text-sm ${
-              unread
-                ? "font-semibold text-slate-800"
-                : "font-medium text-slate-500"
-            }`}
-          >
+          <p className={`leading-snug ${unread ? "font-semibold text-slate-800" : "font-medium text-slate-500"}`}>
             {n.title}
           </p>
-          <span className="whitespace-nowrap text-xs text-slate-400">
-            {timeAgo(n.createdAt)}
-          </span>
+          {unread && <span className={`mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full ${cat.dot}`} aria-label="Unread" />}
         </div>
-        <p className="mt-1 text-sm text-slate-500">{n.message}</p>
+        <p className="mt-0.5 text-sm text-slate-500">{n.message}</p>
+        <p className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs">
+          <span className={`inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 font-medium ${cat.chip}`}>
+            <span className={`h-1.5 w-1.5 rounded-full ${cat.dot}`} />
+            {cat.label}
+          </span>
+          <span className="text-slate-400">{timeAgo(n.createdAt)}</span>
+        </p>
         {n.link &&
           (isExternal ? (
-            <a
-              href={n.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={ctaClass}
-            >
+            <a href={n.link} target="_blank" rel="noopener noreferrer" className={ctaClass} onClick={(e) => e.stopPropagation()}>
               {ctaLabel}
             </a>
           ) : (
-            <Link to={n.link} className={ctaClass}>
+            <Link to={n.link} className={ctaClass} onClick={(e) => e.stopPropagation()}>
               {ctaLabel}
             </Link>
           ))}
       </div>
-    </div>
+    </li>
   );
 }
 
@@ -230,60 +237,63 @@ export default function NotificationsPage() {
   const earlier = items.filter((n) => daysAgo(n.createdAt) > 0);
 
   return (
-    <div className="min-h-screen bg-stone-200 pt-20 sm:pt-24 md:pt-28 lg:pt-32">
-      {/* Page header */}
-      <div className="pointer-events-none absolute -top-20 -right-20 h-80 w-80 rounded-full border border-amber-700"></div>
-      <div className="pointer-events-none absolute top-10 right-5 h-52 w-52 rounded-full border border-gold/15"></div>
+    <div className="min-h-screen bg-stone-200 pb-16">
+      <PageHero
+        title="Notifications"
+        action={
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            {unreadCount > 0 && (
+              <span className="rounded-full bg-white/10 px-3 py-1.5 text-sm font-medium text-gold">
+                {unreadCount} unread
+              </span>
+            )}
+            <button
+              onClick={markAllRead}
+              disabled={unreadCount === 0 || markingAll}
+              className="rounded-full border border-white/25 px-4 py-1.5 text-sm font-semibold text-white transition hover:bg-gold hover:text-slate-800 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-white"
+            >
+              {markingAll ? "Marking..." : "Mark all as read"}
+            </button>
+          </div>
+        }
+      >
+        Updates on your application, circulars, and important dates.
+      </PageHero>
 
-      <div className="mx-auto max-w-3xl px-6 pb-6">
-        <div className="mb-1 flex items-center justify-between">
-          <h1 className="text-3xl font-semibold text-slate-800">
-            Notifications
-          </h1>
-          <button
-            onClick={markAllRead}
-            disabled={unreadCount === 0 || markingAll}
-            className="text-sm font-semibold text-[#805827] transition hover:text-[#FFD700] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:text-[#805827]"
-          >
-            {markingAll ? "Marking..." : "Mark all as read"}
-          </button>
-        </div>
-        <p className="text-sm text-slate-500">
-          Updates on your application, circulars, and important dates.
-        </p>
-      </div>
-
-      {/* Filter tabs */}
-      <div className="mx-auto max-w-3xl px-6">
-        <div className="mb-6 flex items-center gap-2 overflow-x-auto border-b border-slate-200">
-          {TABS.map((tab) => {
-            const active = filter === tab.key;
-            return (
-              <button
-                key={tab.key}
-                onClick={() => setFilter(tab.key)}
-                className={`flex items-center gap-1.5 whitespace-nowrap px-4 py-2.5 text-sm transition ${
-                  active
-                    ? "-mb-px border-b-2 border-[#FFD700] font-semibold text-slate-800"
-                    : "font-medium text-slate-500 hover:text-slate-800"
-                }`}
-              >
-                {tab.label}
-                {tab.key === "unread" && unreadCount > 0 && (
-                  <span className="rounded-full bg-[#805827]/10 px-1.5 text-[11px] font-semibold text-[#805827]">
-                    {unreadCount}
-                  </span>
-                )}
-              </button>
-            );
-          })}
+      {/* Filter chips */}
+      <div className="relative z-10 mx-auto -mt-8 max-w-3xl px-4">
+        <div className="fade-up mb-5 rounded-xl bg-white p-3 shadow-md sm:p-4" style={{ animationDelay: "250ms" }}>
+          <div className="-mx-1 flex gap-2 overflow-x-auto px-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            {TABS.map((tab) => {
+              const active = filter === tab.key;
+              const dot = { unread: "bg-[#FFD700]", circulars: CATS.circular.dot, status: CATS.status.dot }[tab.key];
+              return (
+                <button
+                  key={tab.key}
+                  onClick={() => setFilter(tab.key)}
+                  aria-pressed={active}
+                  className={`inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border px-3 py-1.5 text-sm font-medium transition ${
+                    active ? "border-navy bg-navy text-white" : "border-slate-200 text-slate-600 hover:border-slate-400"
+                  }`}
+                >
+                  {dot && <span className={`h-2 w-2 rounded-full ${dot}`} />}
+                  {tab.label}
+                  {tab.key === "unread" && unreadCount > 0 && (
+                    <span className={`rounded-full px-1.5 text-[11px] font-semibold ${active ? "bg-gold text-slate-800" : "bg-[#805827]/10 text-[#805827]"}`}>
+                      {unreadCount}
+                    </span>
+                  )}
+                </button>
+              );
+            })}
+          </div>
         </div>
       </div>
 
       {/* Notification list */}
-      <div className="mx-auto max-w-3xl space-y-3 px-6 pb-20">
+      <div className="mx-auto max-w-3xl px-4 pb-20">
         {error && (
-          <div className="flex items-center justify-between gap-3 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
+          <div className="mb-4 flex items-center justify-between gap-3 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
             <span>{error}</span>
             <button
               onClick={() => load(filter, 1)}
@@ -301,31 +311,37 @@ export default function NotificationsPage() {
         ) : (
           <>
             {!error && items.length === 0 && (
-              <div className="rounded-xl border border-dashed border-slate-300 py-14 text-center text-sm text-slate-500">
+              <div className="rounded-xl bg-white/70 py-14 text-center text-sm text-slate-500 shadow-sm">
                 {EMPTY_TEXT[filter]}
               </div>
             )}
 
             {today.length > 0 && (
-              <>
-                <p className="pb-1 pt-2 text-xs font-semibold uppercase tracking-widest text-slate-400">
-                  Today
-                </p>
-                {today.map((n) => (
-                  <NotificationItem key={n._id} n={n} onRead={markRead} />
-                ))}
-              </>
+              <section>
+                <h2 className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-slate-500">
+                  <span className="h-2 w-2 rounded-full bg-[#805827]" /> Today
+                  <span className="rounded-full bg-white px-2 py-0.5 text-[11px] text-slate-500 shadow-sm">{today.length}</span>
+                </h2>
+                <ul className="space-y-2.5">
+                  {today.map((n) => (
+                    <NotificationItem key={n._id} n={n} onRead={markRead} />
+                  ))}
+                </ul>
+              </section>
             )}
 
             {earlier.length > 0 && (
-              <>
-                <p className="pb-1 pt-6 text-xs font-semibold uppercase tracking-widest text-slate-400">
-                  Earlier
-                </p>
-                {earlier.map((n) => (
-                  <NotificationItem key={n._id} n={n} onRead={markRead} />
-                ))}
-              </>
+              <section className={today.length > 0 ? "mt-6" : ""}>
+                <h2 className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-slate-500">
+                  <span className="h-2 w-2 rounded-full bg-slate-400" /> Earlier
+                  <span className="rounded-full bg-white px-2 py-0.5 text-[11px] text-slate-500 shadow-sm">{earlier.length}</span>
+                </h2>
+                <ul className="space-y-2.5">
+                  {earlier.map((n) => (
+                    <NotificationItem key={n._id} n={n} onRead={markRead} />
+                  ))}
+                </ul>
+              </section>
             )}
 
             {hasMore && (

@@ -1,6 +1,8 @@
+import { API_URL } from "../utils/config";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Eye, EyeOff } from "lucide-react";
+import { User, Phone, Mail, Lock } from "lucide-react";
+import AuthLayout, { Field, Notice, submitBtn } from "../components/AuthLayout";
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -9,11 +11,11 @@ export default function Signup() {
     phone: "",
     email: "",
     password: "",
+    confirmPassword: "",
   });
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -23,13 +25,20 @@ export default function Signup() {
     e.preventDefault();
     setError("");
     setSuccess("");
+
+    if (formData.password !== formData.confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+
     setLoading(true);
 
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/users/signup`, {
+      const { confirmPassword: _confirm, ...payload } = formData;
+      const res = await fetch(`${API_URL}/users/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       });
 
       const data = await res.json();
@@ -47,124 +56,60 @@ export default function Signup() {
     }
   };
 
+  // visual hint only: how many of 4 basic checks the password passes
+  const pw = formData.password;
+  const strength = pw
+    ? [pw.length >= 8, /[A-Z]/.test(pw), /[0-9]/.test(pw), /[^A-Za-z0-9]/.test(pw)].filter(Boolean).length
+    : 0;
+  const strengthColor = ["bg-slate-200", "bg-red-400", "bg-amber-400", "bg-lime-500", "bg-emerald-500"][strength];
+  const strengthLabel = ["", "Weak", "Fair", "Good", "Strong"][strength];
+
+  const mismatch = formData.confirmPassword !== "" && formData.password !== formData.confirmPassword;
+  const matches = formData.confirmPassword !== "" && formData.password === formData.confirmPassword;
+
   return (
-    <section className="min-h-screen w-full bg-slate-800 flex items-center justify-center px-4 py-10 overflow-y-auto">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-6 sm:p-8 my-auto">
-        <div className="text-center mb-6 sm:mb-8">
-          <img
-            src="/Heading.png"
-            alt="Admito"
-            className="w-16 h-11 sm:w-20 sm:h-14 mx-auto mb-3"
-          />
-
-          <h1 className="text-2xl sm:text-3xl font-bold text-[#805827]">
-            Create Account
-          </h1>
-
-          <p className="text-slate-600 mt-2 text-sm sm:text-base">
-            Sign up for your Admito account
-          </p>
-        </div>
-
-        {error && (
-          <p className="text-red-600 text-sm text-center mb-4">{error}</p>
-        )}
-
-        {success && (
-          <p className="text-green-600 text-sm text-center mb-4">{success}</p>
-        )}
-
-        <form className="space-y-4" onSubmit={handleSubmit}>
-          <div>
-            <label className="block text-sm font-medium text-slate-700 mb-2">
-              Name
-            </label>
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              placeholder="Enter your name"
-              required
-              className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#805827]"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-slate-700 mb-2">
-              Phone
-            </label>
-            <input
-              type="tel"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              placeholder="Enter your phone number"
-              required
-              className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#805827]"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-slate-700 mb-2">
-              Email
-            </label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="Enter your email"
-              required
-              className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#805827]"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-slate-700 mb-2">
-              Password
-            </label>
-            <div className="relative">
-              <input
-                type={showPassword ? "text" : "password"}
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                placeholder="Create a password"
-                required
-                className="w-full px-4 py-3 pr-11 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#805827]"
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword((prev) => !prev)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-[#805827]"
-                aria-label={showPassword ? "Hide password" : "Show password"}
-                tabIndex={-1}
-              >
-                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-              </button>
-            </div>
-          </div>
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-[#805827] text-white py-3 rounded-lg font-medium hover:bg-[#6b4620] transition-colors duration-300 disabled:opacity-50"
-          >
-            {loading ? "Signing up..." : "Sign Up"}
-          </button>
-        </form>
-
-        <p className="text-center text-sm text-slate-600 mt-6">
+    <AuthLayout
+      title="Create Account"
+      subtitle="Sign up for your Admito account"
+      footer={
+        <>
           Already have an account?{" "}
-          <Link
-            to="/login"
-            className="text-[#805827] font-medium cursor-pointer hover:text-[#FFD700]"
-          >
+          <Link to="/login" className="font-semibold text-[#805827] hover:text-[#6b4620] hover:underline">
             Login
           </Link>
-        </p>
-      </div>
-    </section>
+        </>
+      }
+    >
+      <Notice error={error} success={success} />
+
+      <form className="space-y-4" onSubmit={handleSubmit}>
+        <Field label="Full name" icon={User} name="name" value={formData.name} onChange={handleChange} placeholder="Enter your name" autoComplete="name" required disabled={loading} />
+        <Field label="Phone" icon={Phone} type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="Enter your phone number" autoComplete="tel" required disabled={loading} />
+        <Field label="Email" icon={Mail} type="email" name="email" value={formData.email} onChange={handleChange} placeholder="you@example.com" autoComplete="email" required disabled={loading} />
+        <div>
+          <Field label="Password" icon={Lock} type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Create a password" autoComplete="new-password" required disabled={loading} />
+          {pw && (
+            <div className="mt-2 flex items-center gap-2" aria-live="polite">
+              <div className="flex flex-1 gap-1">
+                {[1, 2, 3, 4].map((n) => (
+                  <span key={n} className={`h-1.5 flex-1 rounded-full transition-colors duration-300 ${n <= strength ? strengthColor : "bg-slate-200"}`} />
+                ))}
+              </div>
+              <span className="w-12 text-right text-xs font-medium text-slate-500">{strengthLabel}</span>
+            </div>
+          )}
+        </div>
+
+        <div>
+          <Field label="Confirm password" icon={Lock} type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} placeholder="Re-enter your password" autoComplete="new-password" required disabled={loading} />
+          {mismatch && <p className="mt-1.5 text-xs font-medium text-red-600">Passwords do not match</p>}
+          {matches && <p className="mt-1.5 text-xs font-medium text-emerald-600">Passwords match</p>}
+        </div>
+
+        <button type="submit" disabled={loading || mismatch} className={`${submitBtn} mt-2`}>
+          {loading ? "Creating account..." : "Sign Up"}
+        </button>
+      </form>
+    </AuthLayout>
   );
 }

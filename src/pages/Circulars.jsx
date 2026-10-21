@@ -1,7 +1,8 @@
+import { API_URL } from "../utils/config";
 import { useState, useEffect, useMemo } from "react";
+import PageHero from "../components/PageHero";
 import { Link } from "react-router-dom";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
 // Flowbite badge color patterns: https://flowbite.com/docs/components/badge/
 const STATUS_BADGE = {
@@ -92,22 +93,14 @@ export default function Circulars() {
     (typeFilter !== "all" ? 1 : 0) + (statusFilter !== "all" ? 1 : 0);
 
   return (
-    <section className="min-h-screen bg-stone-200 pt-24 sm:pt-28 md:pt-32 pb-16 px-4">
-      <div className="max-w-6xl mx-auto ">
-        <div className="pointer-events-none absolute -top-20 -right-20 h-80 w-80 rounded-full border border-amber-700"></div>
-        <div className="pointer-events-none absolute top-10 right-5 h-52 w-52 rounded-full border border-gold/15"></div>
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-semibold text-slate-800 mb-2">
-            Admission Circulars
-          </h1>
-          <p className="text-slate-500 max-w-2xl">
-            Latest admission notices, exam dates, and application deadlines from
-            public and private universities across Bangladesh, all in one feed.
-          </p>
-        </div>
+    <section className="min-h-screen bg-stone-200 pb-16">
+      <PageHero title="Admission Circulars">
+        Latest admission notices, exam dates, and application deadlines from
+        public and private universities across Bangladesh, all in one feed.
+      </PageHero>
 
-        <div className="bg-white rounded-lg shadow-sm p-4 mb-6">
+      <div className="relative z-10 max-w-6xl mx-auto px-4 -mt-8">
+        <div className="bg-white rounded-xl shadow-md p-4 mb-6">
           <div className="flex flex-col md:flex-row gap-3 md:items-center">
             {/* Search input — Flowbite form pattern */}
             <div className="relative flex-1">
