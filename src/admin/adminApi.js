@@ -28,6 +28,19 @@ async function request(path, { method = "GET", body } = {}) {
   return data;
 }
 
+// Same as request(), but for multipart uploads (the browser sets the Content-Type)
+async function formRequest(path, { method = "POST", form } = {}) {
+  const token = getToken();
+  const res = await fetch(`${BASE_URL}${path}`, {
+    method,
+    headers: token ? { Authorization: `Bearer ${token}` } : {},
+    body: form,
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.message || `Request failed (${res.status})`);
+  return data;
+}
+
 export const adminApi = {
   login: (email, password) =>
     request("/users/login", {
@@ -74,6 +87,12 @@ export const adminApi = {
     request(`/important-dates/${id}`, {
       method: "DELETE",
     }),
+
+  // Home page carousel banners
+  getBanners: () => request("/banners/admin/all"),
+  createBanner: (form) => formRequest("/banners", { method: "POST", form }),
+  updateBanner: (id, form) => formRequest(`/banners/${id}`, { method: "PUT", form }),
+  deleteBanner: (id) => request(`/banners/${id}`, { method: "DELETE" }),
 
   // Assessments
   getAssessments: () => request("/assessments"),

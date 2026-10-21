@@ -21,11 +21,9 @@ const LeafIcon = () => (
   </svg>
 );
 
-// Small box in the bottom-right corner: how much data this visit has transferred
-// and the CO2 that causes. Put VITE_SHOW_CARBON=false in the frontend .env to hide it.
 export default function CarbonFootprintDisplay() {
   const [gCO2, bytesTransferred] = useCarbonFootprint();
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(() => typeof window === "undefined" || window.innerWidth >= 640);
 
   if (import.meta.env?.VITE_SHOW_CARBON === "false") return null;
 
@@ -35,7 +33,7 @@ export default function CarbonFootprintDisplay() {
         type="button"
         onClick={() => setOpen(true)}
         aria-label="Show network carbon footprint"
-        className="fixed bottom-4 right-4 z-40 flex items-center gap-1.5 rounded-full border border-slate-200 bg-white/90 px-3 py-1.5 text-xs font-medium text-[#805827] shadow-md backdrop-blur transition hover:bg-white"
+        className="fixed bottom-3 right-3 z-40 flex items-center gap-1.5 rounded-full border border-slate-200 bg-white/90 px-2.5 py-1 text-[0.7rem] sm:bottom-4 sm:right-4 sm:px-3 sm:py-1.5 sm:text-xs font-medium text-[#805827] shadow-md backdrop-blur transition hover:bg-white"
       >
         <LeafIcon />
         {formatCO2(gCO2)} CO₂
@@ -44,7 +42,7 @@ export default function CarbonFootprintDisplay() {
   }
 
   return (
-    <div className="fixed bottom-4 right-4 z-40 w-60 rounded-xl border border-slate-200 bg-white/90 p-3 text-slate-800 shadow-lg backdrop-blur">
+    <div className="fixed bottom-3 right-3 z-40 w-56 sm:bottom-4 sm:right-4 sm:w-60 rounded-xl border border-slate-200 bg-white/90 p-3 text-slate-800 shadow-lg backdrop-blur">
       <div className="mb-2 flex items-center justify-between">
         <h3 className="flex items-center gap-1.5 text-sm font-semibold text-[#805827]">
           <LeafIcon />

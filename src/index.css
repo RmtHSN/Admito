@@ -1,3 +1,100 @@
 @import "tailwindcss";
 @import "flowbite-react/plugin/tailwindcss";
 @source "../.flowbite-react/class-list.json";
+ 
+/*
+  Brand colours and font. Hero.jsx, Footer.jsx, Circulars.jsx and others already use
+  names like bg-gold, from-navy, text-slate-soft and font-display, but nothing defined them,
+  so Tailwind silently ignored them. Defining them here makes those classes work.
+*/
+@theme {
+  --color-navy: #0f172a;        /* darkest background (hero, footer) */
+  --color-navy-light: #1e293b;  /* same as slate-800, matches the navbar */
+  --color-gold: #ffd700;        /* highlights, buttons */
+  --color-gold-400: #ffe14d;    /* small gold labels */
+  --color-slate-soft: #1e293b;  /* dark text on gold buttons */
+  --color-brand: #805827;       /* your brown, for text on LIGHT backgrounds */
+  --color-brand-dark: #6b4620;
+  /* system serif = 0 bytes to download. Swap for a web font later if you want. */
+  --font-display: Georgia, "Times New Roman", serif;
+}
+ 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--nav-h);
+  -webkit-text-size-adjust: 100%;
+}
+
+/* navbar height, shared by the navbar, the page offset and full-height layouts */
+:root { --nav-h: 3.5rem; }
+@media (min-width: 768px)  { :root { --nav-h: 5rem; } }
+@media (min-width: 1024px) { :root { --nav-h: 6rem; } }
+
+body { overflow-x: hidden; }
+
+/* PHONE SCALE: Tailwind sizes are rem-based, so shrinking the root size makes
+   text, padding and icons all proportionally smaller on phones. */
+@media (max-width: 639px) {
+  html { font-size: 14.5px; }
+  /* 16px inputs stop iOS from zooming the page when a field is focused */
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]),
+  select, textarea { font-size: 16px; }
+}
+@media (max-width: 380px) {
+  html { font-size: 13.5px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+ 
+/* optional: subtle dotted texture instead of flat grey, use class="portal-bg" on a page wrapper */
+.portal-bg {
+  background-color: #e7e5e4;
+  background-image: radial-gradient(rgba(128, 88, 39, 0.08) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+ 
+
+/* =====================================================================
+   ADMITO MOTION SYSTEM  (all animations switch off for reduced-motion)
+   ===================================================================== */
+@keyframes fade-up   { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+@keyframes fade-in   { from { opacity: 0; } to { opacity: 1; } }
+@keyframes kenburns  { from { transform: scale(1.02) translate3d(0, 0, 0); } to { transform: scale(1.14) translate3d(-1.5%, -1%, 0); } }
+@keyframes float-y   { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-18px); } }
+@keyframes spin-slow { to { transform: rotate(360deg); } }
+@keyframes shimmer   { to { background-position: 200% center; } }
+@keyframes progress  { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes ticker    { to { transform: translateX(-50%); } }
+@keyframes ping-soft { 0% { transform: scale(1); opacity: .6; } 100% { transform: scale(2.4); opacity: 0; } }
+@keyframes draw      { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+.fade-up      { opacity: 0; animation: fade-up .8s cubic-bezier(.2, .7, .2, 1) forwards; }
+.fade-in      { opacity: 0; animation: fade-in .9s ease forwards; }
+.kenburns     { animation: kenburns 9s ease-out forwards; }
+.float-y      { animation: float-y 7s ease-in-out infinite; }
+.spin-slow    { animation: spin-slow 40s linear infinite; }
+.ticker-track { animation: ticker 34s linear infinite; width: max-content; }
+.ticker:hover .ticker-track { animation-play-state: paused; }
+.page-enter   { animation: fade-up .5s cubic-bezier(.2, .7, .2, 1) both; }
+
+/* accent word in headings (kept as a class name so existing markup still works) */
+.shimmer-text {
+  color: var(--color-gold);
+}
+
+/* scroll reveal (see components/Reveal.jsx) */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s cubic-bezier(.2, .7, .2, 1); }
+.reveal.is-in { opacity: 1; transform: none; }
+
+/* cards that lift on hover */
+.card-lift { transition: transform .35s cubic-bezier(.2, .7, .2, 1), box-shadow .35s ease; }
+.card-lift:hover { transform: translateY(-6px); box-shadow: 0 18px 40px -18px rgba(128, 88, 39, .45); }
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-up, .fade-in, .page-enter { animation: none; opacity: 1; }
+  .kenburns, .float-y, .spin-slow, .ticker-track { animation: none; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+}

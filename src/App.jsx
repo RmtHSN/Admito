@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import NotificationsPage from "./pages/NotificationsPage";
@@ -18,12 +18,23 @@ import AdminPanel from "./admin/AdminPanel";
 import ProtectedRoute from "./components/ProtectedRoute";
 import CarbonFootprintDisplay from "./components/CarbonFootprintDisplay";
 
+// remounts on every route change so each page fades up instead of snapping in
+function PageTransition({ children }) {
+  const { pathname } = useLocation();
+  return (
+    <div key={pathname} className="page-enter">
+      {children}
+    </div>
+  );
+}
+
 function App() {
   return (
     <BrowserRouter>
-      <div className="min-h-screen bg-stone-200 text-slate-800 pt-20">
+      <div className="portal-bg min-h-screen text-slate-800 pt-[var(--nav-h)]">
         <Navbar />
 
+        <PageTransition>
         <Routes>
           <Route path="/" element={<Home />} />
 
@@ -91,8 +102,10 @@ function App() {
           <Route path="/admin" element={<AdminPanel />} />
           
         </Routes>
+        </PageTransition>
 
         <Footer />
+        
         <CarbonFootprintDisplay /> 
       </div>
     </BrowserRouter>
