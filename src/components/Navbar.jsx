@@ -1,3 +1,4 @@
+import { API_URL } from "../utils/config";
 import { useState, useEffect } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { getToken } from "../utils/api";
@@ -58,7 +59,7 @@ export default function Navbar() {
     const loadCount = async () => {
       try {
         const res = await fetch(
-          `${import.meta.env.VITE_API_URL}/notifications/unread-count`,
+          `${API_URL}/notifications/unread-count`,
           { headers: { Authorization: `Bearer ${getToken()}` } },
         );
         if (!res.ok) return;

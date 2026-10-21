@@ -1,8 +1,8 @@
+import { API_URL } from "../utils/config";
 import { useState, useEffect, useMemo } from "react";
 import PageHero from "../components/PageHero";
 import { Reveal } from "../components/Reveal";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
 // one colour + one label per category (this also acts as the legend, so no separate one is needed)
 const CATS = {
@@ -287,7 +287,7 @@ export default function ImportantDates() {
 
   return (
     <div className="min-h-screen bg-stone-200 pb-16">
-      <PageHero badge="Calendar" title="Important Dates">
+      <PageHero title="Important Dates">
         Form fill-up, deadlines, exam dates and results. Switch between a timeline and a calendar.
       </PageHero>
 

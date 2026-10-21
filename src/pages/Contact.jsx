@@ -1,3 +1,4 @@
+import { API_URL } from "../utils/config";
 import { useState } from "react";
 import { Mail, Phone, MapPin } from "lucide-react";
 import "@fortawesome/fontawesome-free/css/all.min.css";
@@ -23,7 +24,7 @@ export default function Contact() {
 
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/contact`,
+        `${API_URL}/contact`,
         {
           method: "POST",
           headers: {

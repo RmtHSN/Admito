@@ -1,8 +1,8 @@
+import { API_URL } from "../utils/config";
 import { useState, useEffect, useMemo } from "react";
 import PageHero from "../components/PageHero";
 import { Link } from "react-router-dom";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
 // Flowbite badge color patterns: https://flowbite.com/docs/components/badge/
 const STATUS_BADGE = {
@@ -94,7 +94,7 @@ export default function Circulars() {
 
   return (
     <section className="min-h-screen bg-stone-200 pb-16">
-      <PageHero badge="Admission Feed" title="Admission Circulars">
+      <PageHero title="Admission Circulars">
         Latest admission notices, exam dates, and application deadlines from
         public and private universities across Bangladesh, all in one feed.
       </PageHero>

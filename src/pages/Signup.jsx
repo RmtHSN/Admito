@@ -1,3 +1,4 @@
+import { API_URL } from "../utils/config";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { User, Phone, Mail, Lock } from "lucide-react";
@@ -34,7 +35,7 @@ export default function Signup() {
 
     try {
       const { confirmPassword: _confirm, ...payload } = formData;
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/users/signup`, {
+      const res = await fetch(`${API_URL}/users/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
