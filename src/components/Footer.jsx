@@ -31,10 +31,10 @@ const COLUMNS = [
 export default function Footer() {
   return (
     <footer className="bg-navy text-slate-300">
-      <div className="mx-auto max-w-screen-xl px-4 py-10 md:px-8 lg:py-12">
-        <div className="grid gap-10 md:grid-cols-4">
+      <div className="mx-auto max-w-screen-xl px-4 py-8 md:px-8 lg:py-12">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-8 md:grid-cols-4 md:gap-10">
           {/* brand */}
-          <div className="md:col-span-1">
+          <div className="col-span-2 md:col-span-1">
             <Link to="/" className="font-display flex items-center text-2xl font-semibold text-white hover:text-gold">
               <svg className="mr-2 h-8 w-8 text-gold" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path d="M4 19.5A2.5 2.5 0 016.5 17H20" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
@@ -64,7 +64,7 @@ export default function Footer() {
           ))}
         </div>
 
-        <div className="mt-10 flex flex-col gap-3 border-t border-white/10 pt-6 text-xs text-slate-400 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-8 flex flex-col gap-3 border-t border-white/10 pt-6 text-xs text-slate-400 sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {new Date().getFullYear()} <span className="text-slate-200">Admito</span>. All rights reserved.
           </p>

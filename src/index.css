@@ -21,6 +21,27 @@
  
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: var(--nav-h);
+  -webkit-text-size-adjust: 100%;
+}
+
+/* navbar height, shared by the navbar, the page offset and full-height layouts */
+:root { --nav-h: 3.5rem; }
+@media (min-width: 768px)  { :root { --nav-h: 5rem; } }
+@media (min-width: 1024px) { :root { --nav-h: 6rem; } }
+
+body { overflow-x: hidden; }
+
+/* PHONE SCALE: Tailwind sizes are rem-based, so shrinking the root size makes
+   text, padding and icons all proportionally smaller on phones. */
+@media (max-width: 639px) {
+  html { font-size: 14.5px; }
+  /* 16px inputs stop iOS from zooming the page when a field is focused */
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]),
+  select, textarea { font-size: 16px; }
+}
+@media (max-width: 380px) {
+  html { font-size: 13.5px; }
 }
 @media (prefers-reduced-motion: reduce) {
   html {

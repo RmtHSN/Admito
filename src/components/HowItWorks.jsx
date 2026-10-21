@@ -19,31 +19,31 @@ export default function HowItWorks() {
   }, []);
 
   return (
-    <section className="bg-stone-100 py-16">
+    <section className="bg-stone-100 py-10 sm:py-16">
       <div className="mx-auto max-w-screen-xl px-4 lg:px-6">
-        <Reveal className="mb-12 text-center">
+        <Reveal className="mb-8 text-center sm:mb-12">
           <span className="text-xs font-semibold uppercase tracking-widest text-[#805827]">Your journey</span>
-          <h2 className="font-display mt-2 text-3xl font-semibold text-slate-800 md:text-4xl">From sign-up to admission in four steps</h2>
+          <h2 className="font-display mt-2 text-2xl font-semibold text-slate-800 sm:text-3xl md:text-4xl">From sign-up to admission in four steps</h2>
         </Reveal>
 
-        <div className="relative grid gap-8 md:grid-cols-4">
+        <div className="relative grid grid-cols-2 gap-x-2 gap-y-4 md:grid-cols-4 md:gap-8">
           {/* connecting line (desktop) draws itself when scrolled into view */}
           <Reveal className="absolute left-[12.5%] right-[12.5%] top-7 hidden h-0.5 bg-gold/60 md:block" />
           {STEPS.map((s, i) => (
             <Reveal key={s.n} delay={i * 140} className="relative text-center">
               <Link to={s.to} className="group block card-lift rounded-2xl p-4">
-                <span className="relative mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full border-2 border-gold bg-white font-display text-lg font-semibold text-[#805827] shadow transition group-hover:bg-gold group-hover:text-slate-soft">
+                <span className="relative mx-auto mb-3 flex h-11 w-11 sm:mb-4 sm:h-14 sm:w-14 items-center justify-center rounded-full border-2 border-gold bg-white font-display text-lg font-semibold text-[#805827] shadow transition group-hover:bg-gold group-hover:text-slate-soft">
                   {s.n}
                 </span>
-                <h3 className="mb-1 text-lg font-semibold text-slate-800">{s.title}</h3>
+                <h3 className="mb-1 text-base font-semibold sm:text-lg text-slate-800">{s.title}</h3>
                 <p className="text-sm text-slate-500">{s.text}</p>
               </Link>
             </Reveal>
           ))}
         </div>
 
-        <Reveal delay={200} className="mt-14 overflow-hidden rounded-2xl bg-navy p-8 text-center shadow-xl sm:p-10">
-          <h3 className="font-display text-2xl font-semibold text-white sm:text-3xl">
+        <Reveal delay={200} className="mt-8 overflow-hidden rounded-2xl bg-navy p-6 sm:mt-14 sm:p-8 text-center shadow-xl sm:p-10">
+          <h3 className="font-display text-xl font-semibold text-white sm:text-3xl">
             Ready to begin your <span className="shimmer-text italic">session</span>?
           </h3>
           <p className="mx-auto mt-2 max-w-xl text-slate-300">Everything you need for your admission, waiting in one account.</p>

@@ -112,7 +112,7 @@ export default function Navbar() {
     <nav className="fixed top-0 inset-x-0 z-50 bg-slate-800 backdrop-blur-lg">
       {/*nav bar bg atke rakhte backdrop-blur use kora hoise*/}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16 md:h-20 lg:h-24">
+        <div className="flex justify-between items-center h-14 md:h-20 lg:h-24">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 group shrink-0">
             <div className="relative w-8 h-8">
@@ -172,7 +172,7 @@ export default function Navbar() {
           </div>
 
           {/* Mobile: bell + hamburger */}
-          <div className="flex md:hidden items-center gap-4">
+          <div className="flex md:hidden items-center gap-3">
             <NavLink
               to="/important-dates"
               aria-label="Important dates"

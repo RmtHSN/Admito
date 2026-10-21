@@ -31,7 +31,7 @@ function PageTransition({ children }) {
 function App() {
   return (
     <BrowserRouter>
-      <div className="portal-bg min-h-screen text-slate-800 pt-20">
+      <div className="portal-bg min-h-screen text-slate-800 pt-[var(--nav-h)]">
         <Navbar />
 
         <PageTransition>

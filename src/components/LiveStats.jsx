@@ -36,10 +36,10 @@ export default function LiveStats() {
   ];
 
   return (
-    <section className="relative z-10 -mt-14 px-4">
-      <div className="mx-auto grid max-w-4xl gap-3 rounded-2xl border border-stone-300 bg-white p-4 shadow-xl sm:grid-cols-3">
+    <section className="relative z-10 -mt-12 px-3 sm:-mt-14 sm:px-4">
+      <div className="mx-auto grid max-w-4xl grid-cols-3 gap-1 rounded-2xl border border-stone-300 bg-white p-2 shadow-xl sm:gap-3 sm:p-4">
         {items.map((it, i) => (
-          <Reveal key={it.label} delay={i * 100} className="flex items-center gap-4 rounded-xl px-4 py-3">
+          <Reveal key={it.label} delay={i * 100} className="flex flex-col items-center gap-1.5 rounded-xl px-1 py-2 text-center sm:flex-row sm:gap-4 sm:px-4 sm:py-3 sm:text-left">
             <span className="relative flex h-3 w-3 shrink-0">
               {(it.live || it.warn) && (
                 <span className={`absolute inset-0 rounded-full ${it.warn ? "bg-red-400" : "bg-emerald-400"}`} style={{ animation: "ping-soft 1.8s ease-out infinite" }} />
@@ -47,10 +47,10 @@ export default function LiveStats() {
               <span className={`relative h-3 w-3 rounded-full ${it.warn ? "bg-red-500" : it.live ? "bg-emerald-500" : "bg-[#805827]"}`} />
             </span>
             <div>
-              <p className="font-display text-3xl font-semibold leading-none text-slate-800">
+              <p className="font-display text-2xl sm:text-3xl font-semibold leading-none text-slate-800">
                 <CountUp to={it.value} />
               </p>
-              <p className="mt-1 text-xs font-medium uppercase tracking-wide text-slate-500">{it.label}</p>
+              <p className="mt-1 text-[0.65rem] font-medium uppercase leading-tight tracking-wide sm:text-xs text-slate-500">{it.label}</p>
             </div>
           </Reveal>
         ))}

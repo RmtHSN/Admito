@@ -59,9 +59,9 @@ export default function Hero() {
   };
 
   const primaryBtn =
-    "inline-flex items-center justify-center rounded-lg bg-gold px-6 py-3 text-sm font-semibold text-slate-soft shadow-lg shadow-gold/25 transition hover:-translate-y-0.5";
+    "inline-flex flex-1 items-center justify-center rounded-lg bg-gold px-5 py-3 text-sm sm:flex-none sm:px-6 font-semibold text-slate-soft shadow-lg shadow-gold/25 transition hover:-translate-y-0.5";
   const ghostBtn =
-    "inline-flex items-center justify-center rounded-lg border border-white/30 px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-white/10";
+    "inline-flex flex-1 items-center justify-center rounded-lg border border-white/30 px-5 py-3 text-sm sm:flex-none sm:px-6 font-semibold text-white transition hover:-translate-y-0.5 hover:bg-white/10";
 
   return (
     <section className="relative isolate overflow-hidden bg-navy">
@@ -72,13 +72,13 @@ export default function Hero() {
       <div className="float-y pointer-events-none absolute right-5 top-10 -z-10 h-52 w-52 rounded-full border border-gold/20" />
       <div className="float-y pointer-events-none absolute -left-10 top-1/3 -z-10 h-40 w-40 rounded-full bg-gold/10 blur-2xl" style={{ animationDelay: "-3s" }} />
 
-      <div className="mx-auto max-w-screen-xl px-4 pb-72 pt-14 text-center sm:pb-60 lg:px-12 lg:pb-56 lg:pt-20">
+      <div className="mx-auto max-w-screen-xl px-4 pb-64 pt-8 text-center sm:pb-60 sm:pt-14 lg:px-12 lg:pb-56 lg:pt-20">
         <Link
           to="/circulars"
           style={{ animationDelay: "50ms" }}
-          className="fade-up mb-7 inline-flex items-center rounded-full bg-white/10 py-1.5 pl-1.5 pr-4 text-sm text-slate-100 transition hover:bg-white/15"
+          className="fade-up mb-5 inline-flex max-w-full items-center rounded-full bg-white/10 py-1 pl-1 pr-3 text-xs sm:mb-7 sm:py-1.5 sm:pl-1.5 sm:pr-4 sm:text-sm text-slate-100 transition hover:bg-white/15"
         >
-          <span className="mr-3 rounded-full bg-gold px-3 py-1 text-xs font-semibold text-slate-soft">New</span>
+          <span className="mr-2 shrink-0 rounded-full bg-gold px-2.5 py-0.5 text-xs sm:mr-3 sm:px-3 sm:py-1 font-semibold text-slate-soft">New</span>
           Session 2026&ndash;27 admissions are now open
           <svg className="ml-2 h-4 w-4" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
             <path
@@ -90,18 +90,18 @@ export default function Hero() {
         </Link>
 
         <h1 style={{ animationDelay: "180ms" }}
-          className="fade-up font-display mb-4 text-4xl font-semibold leading-tight tracking-tight text-white md:text-5xl lg:text-6xl">
+          className="fade-up font-display mb-3 text-[2rem] font-semibold leading-[1.15] sm:mb-4 sm:text-4xl tracking-tight text-white md:text-5xl lg:text-6xl">
           Welcome to <span className="shimmer-text italic">Admito</span>
           <br className="hidden md:block" /> begin your session here
         </h1>
 
-        <p style={{ animationDelay: "320ms" }} className="fade-up mx-auto mb-8 max-w-3xl text-lg text-slate-200 lg:text-xl">
+        <p style={{ animationDelay: "320ms" }} className="fade-up mx-auto mb-6 max-w-3xl text-[0.95rem] leading-relaxed text-slate-200 sm:mb-8 sm:text-lg lg:text-xl">
           One portal to find circulars, apply, and track everything about your admission: status, important
           dates, and reminders, all in one place.
         </p>
 
         {/* search */}
-        <form onSubmit={onSearch} style={{ animationDelay: "440ms" }} className="fade-up mx-auto mb-8 flex max-w-xl overflow-hidden rounded-xl bg-white shadow-lg">
+        <form onSubmit={onSearch} style={{ animationDelay: "440ms" }} className="fade-up mx-auto mb-5 flex max-w-xl sm:mb-8 overflow-hidden rounded-xl bg-white shadow-lg">
           <label htmlFor="hero-search" className="sr-only">
             Search university, unit or circular
           </label>
@@ -111,7 +111,7 @@ export default function Hero() {
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="Search university, unit or circular…"
-            className="min-w-0 flex-1 border-0 px-4 py-3.5 text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-brand"
+            className="min-w-0 flex-1 border-0 px-4 py-3 text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-brand"
           />
           <button type="submit" className="bg-brand px-5 text-sm font-semibold text-white transition hover:bg-brand-dark">
             Search
@@ -119,7 +119,7 @@ export default function Hero() {
         </form>
 
         {/* calls to action */}
-        <div style={{ animationDelay: "560ms" }} className="fade-up mb-12 flex flex-col items-center justify-center gap-3 sm:flex-row lg:mb-16">
+        <div style={{ animationDelay: "560ms" }} className="fade-up mb-8 flex flex-row flex-wrap items-center justify-center gap-2.5 sm:mb-12 sm:gap-3 lg:mb-16">
           {isLoggedIn ? (
             <Link to="/applications" className={primaryBtn}>
               My applications <Arrow />
@@ -132,7 +132,7 @@ export default function Hero() {
           <Link to="/circulars" className={ghostBtn}>
             Browse circulars
           </Link>
-          <a href="#features" onClick={scrollToFeatures} className="px-2 py-3 text-sm font-medium text-slate-300 hover:text-gold">
+          <a href="#features" onClick={scrollToFeatures} className="w-full px-2 py-1 text-sm font-medium text-slate-300 hover:text-gold sm:w-auto sm:py-3">
             How it works ↓
           </a>
         </div>
@@ -140,14 +140,14 @@ export default function Hero() {
         {/* quick access cards */}
         <div style={{ animationDelay: "680ms" }} className="fade-up mx-auto max-w-5xl">
           <span className="text-xs font-semibold uppercase tracking-widest text-gold-400">On this portal</span>
-          <div className="mt-6 grid gap-4 text-left sm:grid-cols-3">
+          <div className="mt-4 grid gap-2.5 text-left sm:mt-6 sm:grid-cols-3 sm:gap-4">
             {QUICK_LINKS.map((item) => (
               <Link
                 key={item.to}
                 to={item.to}
-                className="group flex items-start gap-3 rounded-xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm transition hover:-translate-y-1 hover:border-gold/40 hover:bg-white/10"
+                className="group flex items-start gap-3 rounded-xl border border-white/10 bg-white/5 p-3 sm:p-4 backdrop-blur-sm transition hover:-translate-y-1 hover:border-gold/40 hover:bg-white/10"
               >
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gold/15 text-gold">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gold/15 sm:h-10 sm:w-10 text-gold">
                   <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6" d={item.icon} />
                   </svg>

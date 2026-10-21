@@ -126,7 +126,7 @@ export default function AdminPanel() {
   }
 
   return (
-    <div className="min-h-screen bg-stone-200 pt-20 sm:pt-24 pb-16 px-4">
+    <div className="min-h-screen bg-stone-200 pt-8 sm:pt-12 pb-16 px-4">
       <div className="max-w-4xl mx-auto">
 
         {/* Header */}

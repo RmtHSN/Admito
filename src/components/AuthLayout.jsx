@@ -12,7 +12,7 @@ const PERKS = [
 // brand panel on the left (desktop), form card on the right.
 export default function AuthLayout({ title, subtitle, children, footer }) {
   return (
-    <section className="grid min-h-[calc(100vh-5rem)] lg:grid-cols-2">
+    <section className="grid min-h-[calc(100dvh-var(--nav-h))] lg:grid-cols-2">
       {/* brand panel */}
       <aside className="relative hidden overflow-hidden bg-navy p-12 text-white lg:flex lg:flex-col lg:justify-center">
         <div className="spin-slow pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full border border-dashed border-gold/30" />
