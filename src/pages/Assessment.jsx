@@ -1,3 +1,4 @@
+import { API_URL } from "../utils/config";
 import { useEffect, useMemo, useState } from "react";
 import PageHero from "../components/PageHero";
 import { Reveal } from "../components/Reveal";
@@ -30,8 +31,7 @@ export default function Assessment() {
   useEffect(() => {
     const fetchAssessments = async () => {
       try {
-        const baseUrl =
-          import.meta.env.VITE_API_URL || "http://localhost:4000/api";
+        const baseUrl = API_URL;
 
         const response = await fetch(`${baseUrl}/assessments`);
 
@@ -70,7 +70,7 @@ export default function Assessment() {
 
   return (
     <section className="min-h-screen bg-stone-200">
-      <PageHero badge="Exam Guide" title="Assessment & Mark Distribution">
+      <PageHero title="Assessment & Mark Distribution">
         Compare eligibility, subject-wise mark breakdown, and exam patterns
         across public and private universities in Bangladesh — know exactly
         what to prepare for, before you apply.

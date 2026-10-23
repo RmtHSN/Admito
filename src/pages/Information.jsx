@@ -1,10 +1,9 @@
+import { API_URL } from "../utils/config";
 import { useState, useRef, useEffect } from "react";
 import PageHero from "../components/PageHero";
 
 // Works whether VITE_API_URL is "http://host:4000" or "http://host:4000/api"
-const API = (import.meta.env.VITE_API_URL || "http://localhost:4000")
-  .replace(/\/+$/, "")
-  .replace(/\/api$/, "");
+const API = API_URL.replace(/\/api$/, "");
 const MAX_FILE_SIZE = 2 * 1024 * 1024; // keep in sync with the backend limit
 const authHeaders = () => ({ Authorization: `Bearer ${localStorage.getItem("token")}` });
 
@@ -328,7 +327,7 @@ export default function Information() {
 
   return (
     <section className="min-h-screen bg-stone-200 pb-16">
-      <PageHero badge="Your Profile" title="Applicant Profile">
+      <PageHero title="Applicant Profile">
         Save your details, academic records, and documents here — reuse them as
         a quick reference to fill out any university's form faster and with
         fewer errors.

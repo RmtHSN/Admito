@@ -1,8 +1,8 @@
+import { API_URL as API } from "../utils/config";
 /* eslint-disable react-hooks/set-state-in-effect */
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
-const API = import.meta.env.VITE_API_URL;
 const INTERVAL = 6000; // ms per slide
 
 // Shown until you upload your own slides in Admin → Banners

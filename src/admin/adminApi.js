@@ -1,5 +1,4 @@
-const BASE_URL =
-  import.meta.env.VITE_API_URL || "http://localhost:5173/api";
+import { API_URL as BASE_URL } from "../utils/config";
 
 function getToken() {
   return localStorage.getItem("admito_token");

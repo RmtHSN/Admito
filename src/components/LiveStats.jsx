@@ -1,7 +1,7 @@
+import { API_URL as API } from "../utils/config";
 import { useEffect, useState } from "react";
 import { CountUp, Reveal } from "./Reveal";
 
-const API = import.meta.env.VITE_API_URL;
 const DAY = 86400000;
 
 // Real numbers from your own circulars, so the home page always reflects the portal's current state

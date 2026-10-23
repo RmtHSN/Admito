@@ -239,7 +239,6 @@ export default function NotificationsPage() {
   return (
     <div className="min-h-screen bg-stone-200 pb-16">
       <PageHero
-        badge="Inbox"
         title="Notifications"
         action={
           <div className="flex flex-wrap items-center justify-center gap-3">

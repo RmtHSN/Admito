@@ -1,9 +1,9 @@
+import { API_URL } from "../utils/config";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import PageHero from "../components/PageHero";
 import { Reveal, CountUp } from "../components/Reveal";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
 const STEP_LABELS = {
   applied: "Application submitted",
@@ -298,7 +298,7 @@ export default function Applications() {
 
   return (
     <div className="min-h-screen bg-stone-200 pb-16">
-      <PageHero badge="Tracker" title="My Applications">
+      <PageHero title="My Applications">
         Track every application you have made. Progress updates automatically
         from each university's important dates.
       </PageHero>

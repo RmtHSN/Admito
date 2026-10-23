@@ -52,7 +52,7 @@ export default function Account() {
     navigate("/login");
   };
 
-  const heroProps = { badge: "My Account", title: "Account" };
+  const heroProps = { title: "Account" };
 
   if (loading) {
     return (
